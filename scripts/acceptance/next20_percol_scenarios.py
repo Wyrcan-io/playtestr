@@ -19,14 +19,13 @@ PROJECT = DOC / "percol"
 PIN = "4b28037e328da3d0fe8165c11b800cbaddcb525e"
 HOSTS = {"linux": "Linux", "darwin": "Darwin"}
 SERIES = "native-exit-v3"
-SCENARIO_VERSION = 8
+SCENARIO_VERSION = 9
 
 
 def make_case(identity, kind, title, fixture, steps, stdout, *, options=(), filename=False,
-              fixture_name="choices.txt", terminal_diagnostic=False):
+              fixture_name="choices.txt"):
     args = " ".join(shlex.quote(value) for value in options)
-    command = '"$PERCOL_PYTHON" "$PERCOL_SOURCE/bin/percol"' if terminal_diagnostic else \
-        'exec "$PERCOL_PYTHON" "$PERCOL_SOURCE/bin/percol"'
+    command = 'exec "$PERCOL_PYTHON" "$PERCOL_SOURCE/bin/percol"'
     if args:
         command += " " + args
     if filename:
@@ -34,8 +33,6 @@ def make_case(identity, kind, title, fixture, steps, stdout, *, options=(), file
     else:
         command += " < " + shlex.quote(fixture_name)
     command += " > result.txt"
-    if terminal_diagnostic:
-        command += "; percol_status=$?; printf 'BYTE-DUMP:'; od -An -tx1 result.txt; exit \"$percol_status\""
     actions = list(steps) + [{"state": {"path": "result.txt", "kind": "file",
                                          "bytes_base64": base64.b64encode(stdout).decode("ascii")}}]
     expected_exit = next(action["exit"] for action in reversed(steps) if "exit" in action)
@@ -96,11 +93,10 @@ def cases():
                   b"apple\nbanana\n", [{"expect": "apple"}, {"text": "a"},
                   {"expect": "1/2"}, {"key": "Enter"}, {"exit": 0}],
                   b"apple\n", options=("--eager",)),
-        make_case("E07", "edge", "Respect case-sensitive matching",
+        make_case("E07", "edge", "Capture stale output after case-sensitive filtering",
                   b"Blue\nblue\n", [{"expect": "Blue"}, {"text": "blue"},
-                  {"expect": "1/1"}, {"key": "Enter"}, {"expect": "BYTE-DUMP:"},
-                  {"exit": 0}], b"blue\n", options=("--case-sensitive",),
-                  terminal_diagnostic=True),
+                  {"expect": "1/1"}, {"key": "Enter"}, {"exit": 0}],
+                  b"Blue\n", options=("--case-sensitive",)),
         make_case("E08", "edge", "Use the documented regular-expression finder",
                   b"pine\npineapple\napple\n", [{"expect": "pine"}, {"key": "Enter"}, {"exit": 0}],
                   b"pine\n", options=("--match-method=regex", "--query=^pine$")),
@@ -176,7 +172,7 @@ def materialize():
         "native_cells": ["linux-amd64", "macos-arm64"], "stateful": False,
         "saved_state_coverage_credit": 0,
         "oracle": "Rendered PTY checkpoints, exact target exit status, and exact selected stdout bytes captured to a harness-owned file. The capture file is not target-managed saved-state coverage.",
-        "shell_adapter_scope": "The POSIX shell redirects the reviewed fixture into Percol and its selected output to result.txt, execs the reviewed Python 2 entry point except in E07 where it retains control to print a harness-owned hexadecimal dump of result.txt after Percol exits; the target owns terminal rendering and keyboard handling.",
+        "shell_adapter_scope": "The POSIX shell only redirects the reviewed fixture into Percol, redirects Percol stdout to result.txt, and execs the reviewed Python 2 Percol entry point; the target owns terminal rendering and keyboard handling.",
         "risk_dimensions": ["query matching and edits", "row navigation", "multi-selection",
                             "filter inversion", "caret positioning", "Unicode output",
                             "cancel exits", "empty-input behavior",

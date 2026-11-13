@@ -1,0 +1,52 @@
+{
+  "schema_version": 3,
+  "project": "percol",
+  "repository": "mooz/percol",
+  "pin": "4b28037e328da3d0fe8165c11b800cbaddcb525e",
+  "supersedes": "unsupported-controls-v2.json",
+  "controls": [
+    {
+      "option": "--auto-match",
+      "documented_behavior": "Auto-match when only one candidate is available.",
+      "source_locations": ["percol/cli.py:273", "percol/__init__.py:264"],
+      "source_finding": "The CLI invokes percol.finish_with_exit_code() without an argument; the method signature is finish_with_exit_code(self, value), with no default.",
+      "native_reproduction": {
+        "run_id": 43382154788,
+        "hosts": ["linux-amd64", "macos-arm64"],
+        "scenario": "E06 in scenario-declaration-v4.json",
+        "failure": "TypeError: finish_with_exit_code() takes exactly 2 arguments (1 given)",
+        "target_exit": 1
+      },
+      "classification": "unsupported upstream option at the selected pinned source",
+      "admission_credit": 0
+    },
+    {
+      "behavior": "Inverted matching with an initial nonempty query",
+      "source_finding": "The selector model begins lazy evaluation before the CLI applies invert_match. A positive initial match can remain cached after the flag is changed.",
+      "native_reproduction": {
+        "run_id": 43379976720,
+        "hosts": ["linux-amd64", "macos-arm64"],
+        "scenario": "N07 in scenario-declaration-v2.json",
+        "failure": "For query ap, both apple and banana remained visible and apple was selected instead of banana.",
+        "report_category": "state_assertion_failure"
+      },
+      "contract_workaround": "A later edit forces a fresh inverted search. Correctness of inverted initialization before refresh is not claimed.",
+      "admission_credit": 0
+    },
+    {
+      "option": "--case-sensitive",
+      "behavior": "Selecting the displayed result after typing a case-sensitive query",
+      "source_locations": ["percol/cli.py:261-262", "percol/model.py:69-76", "percol/actions.py:16-22"],
+      "native_reproduction": {
+        "run_id": 43386753118,
+        "hosts": ["linux-amd64", "macos-arm64"],
+        "scenario": "E07 in scenario-declaration-v8.json",
+        "evidence": "Typing lowercase blue with --case-sensitive reduced the displayed result count to 1/1, yet Enter emitted the first original candidate Blue. Harness-owned byte dumps were 42 6c 75 65 0a on both hosts; the target exited 0.",
+        "report_category": "state_assertion_failure"
+      },
+      "classification": "unsupported for selecting and emitting the currently displayed row after a typed case-sensitive query; preserve only as a recorded upstream mismatch",
+      "admission_credit": 0
+    }
+  ],
+  "scope": "Pinned target behavior only; no upstream source change, issue, or maintainer contact was made."
+}

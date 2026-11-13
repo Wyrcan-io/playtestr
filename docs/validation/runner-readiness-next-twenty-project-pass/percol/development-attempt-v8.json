@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "project": "percol",
+  "phase": "development",
+  "run_id": 43386753118,
+  "workflow": ".github/workflows/runner-readiness-next20-percol-development.yml",
+  "commit": "95e932cb8b2bbf65dcd5eaf92d4aedbd8de01fa5",
+  "run_url": "https://github.com/Wyrcan-io/playtestr/actions/runs/43386753118",
+  "run_conclusion": "failure",
+  "candidate": "v0.4.0-rc.8",
+  "candidate_series": "native-exit-v3",
+  "scenario_contract": "scenario-declaration-v8.json",
+  "attempted_repetitions": 1,
+  "attempted_case_ids_per_host": ["N01", "N02", "N03", "N04", "N05", "N06", "N07", "N08", "E01", "E02", "E03", "E04", "E05", "E06", "E07"],
+  "host_results": [
+    {
+      "host": "linux-amd64",
+      "job_id": 131756916160,
+      "artifact_id": 14018863360,
+      "artifact_name": "next20-percol-development-linux-43386753118",
+      "artifact_bytes": 52091981,
+      "provider_sha256": "7130467024354357c81089e4ffa5740a11c03b98b4f879eebe8685dd138f4673",
+      "downloaded_zip": "local-only: artifacts/runner-readiness-next-twenty-project-pass/retained/percol-development-run43386753118-linux.zip",
+      "downloaded_sha256": "7130467024354357c81089e4ffa5740a11c03b98b4f879eebe8685dd138f4673",
+      "cases_before_first_failure": 14,
+      "first_failure": {
+        "case": "E07",
+        "report": "percol/development/linux/r01/E07/report.json",
+        "category": "state_assertion_failure",
+        "actual_target_exit": 0,
+        "expected_stdout": "blue\\n",
+        "actual_stdout": "Blue\\n (hex: 42 6c 75 65 0a)",
+        "rendered_screen": "The lowercase query reduced the displayed results to 1/1; Percol selected the lowercase row but emitted the first source row, Blue.",
+        "target_process_group_cleanup_confirmed": true,
+        "workspace_cleaned": true
+      },
+      "source_restoration": "passed",
+      "runtime_cleanup": "passed",
+      "campaign_source_runtime_removed": true,
+      "storage_limit": "passed",
+      "admission_credit": 0
+    },
+    {
+      "host": "macos-arm64",
+      "job_id": 131756915782,
+      "artifact_id": 14019475040,
+      "artifact_name": "next20-percol-development-darwin-43386753118",
+      "artifact_bytes": 47297510,
+      "provider_sha256": "c83f4cdcdb4b745c6284259b0c7935055e29f4f2d71395d328adca0913553cef",
+      "downloaded_zip": "local-only: artifacts/runner-readiness-next-twenty-project-pass/retained/percol-development-run43386753118-macos.zip",
+      "downloaded_sha256": "c83f4cdcdb4b745c6284259b0c7935055e29f4f2d71395d328adca0913553cef",
+      "cases_before_first_failure": 14,
+      "first_failure": {
+        "case": "E07",
+        "report": "percol/development/darwin/r01/E07/report.json",
+        "category": "state_assertion_failure",
+        "actual_target_exit": 0,
+        "expected_stdout": "blue\\n",
+        "actual_stdout": "Blue\\n (hex: 42 6c 75 65 0a)",
+        "rendered_screen": "The lowercase query reduced the displayed results to 1/1; Percol emitted the first source row, Blue.",
+        "target_process_group_cleanup_confirmed": true,
+        "workspace_cleaned": true
+      },
+      "source_restoration": "passed",
+      "runtime_cleanup": "passed",
+      "campaign_source_runtime_removed": true,
+      "storage_limit": "passed",
+      "admission_credit": 0
+    }
+  ],
+  "diagnosis": {
+    "target_behavior": "V8 used the case-sensitive setting before typing, verified a visible 1/1 lowercase result, then selected it. Both hosts wrote the first original candidate Blue to stdout. A harness-owned od dump in the PTY established the exact bytes as 42 6c 75 65 0a (Blue followed by LF). The screen filter and emitted selection disagree.",
+    "classification": "Pinned Percol interactive selection/output mismatch for typed case-sensitive queries. This behavior is unsupported for reliable selected output; do not claim that case-sensitive selection emits the displayed row.",
+    "correction": "Keep v8 immutable. V9 records the exact observed Blue output while still requiring the one-row lowercase screen, making the limitation explicit instead of treating it as a successful lowercase selection.",
+    "cleanup": "Both hosts passed process-group termination confirmation, managed workspace cleanup, source restoration, runtime cleanup, campaign source/runtime removal and storage checks."
+  },
+  "admission_credit": 0
+}
