@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "status": "preserved-prelaunch-phase-configuration-failure",
+  "project": "fzy",
+  "repository": "jhawthorn/fzy",
+  "pin": "34b88869d022e861da4846c4463aea3ddfb3ff30",
+  "candidate": "v0.4.0-rc.8",
+  "candidate_series": "native-exit-v3",
+  "run_id": 43358141466,
+  "head_sha": "8871d0de324b28537b9641690393dd9f96453d6b",
+  "event": "push",
+  "attempted_phase": "qualification",
+  "phase_failure": "Campaign evidence recorder rejects undeclared phase 'qualification'; no Playtestr scenario attempt was created or launched.",
+  "hosts": {
+    "linux": {
+      "job_id": 131664989678,
+      "provider_artifact_id": 14007112061,
+      "provider_artifact_name": "next20-fzy-development-linux-43358141466",
+      "provider_bytes": 174110,
+      "provider_sha256": "36ea4f888635add38839d6245b6088d0099259e37da6cd4fa9d3298478006877",
+      "source_archive_sha256": "d55d4d0dcbced2daa0dd16b42ee0fc31654bd038ff6a147b38580c233d62c967",
+      "upstream_build_and_tests": "passed",
+      "candidate_install": "passed",
+      "target_launches": 0,
+      "target_cleanup": "failed before cleanup: no actual target reports existed; storage recorded active fzy target tree in ephemeral hosted checkout",
+      "storage": "bounded raw and retained totals; active source/runtime remained in job workspace until hosted job disposal",
+      "admission_credit": 0
+    },
+    "darwin": {
+      "job_id": 131664989270,
+      "provider_artifact_id": 14006384262,
+      "provider_artifact_name": "next20-fzy-development-darwin-43358141466",
+      "provider_bytes": 136484,
+      "provider_sha256": "9f84f8fd58ac3da7393bed154db9b387a93bcb98c786099d62559114c05aa8ea",
+      "source_archive_sha256": "d55d4d0dcbced2daa0dd16b42ee0fc31654bd038ff6a147b38580c233d62c967",
+      "upstream_build_and_tests": "passed",
+      "candidate_install": "passed",
+      "target_launches": 0,
+      "target_cleanup": "failed before cleanup: no actual target reports existed; storage recorded active fzy target tree in ephemeral hosted checkout",
+      "storage": "bounded raw and retained totals; active source/runtime remained in job workspace until hosted job disposal",
+      "admission_credit": 0
+    }
+  },
+  "disposition": "Preserve the configuration failure without scenario credit. The workflow now uses the already-declared final-archive phase; no target-cleanup pass is inferred for this attempt."
+}

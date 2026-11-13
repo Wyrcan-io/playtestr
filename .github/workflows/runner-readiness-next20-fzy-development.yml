@@ -93,7 +93,7 @@ jobs:
       - name: Run the twenty frozen fzy workflows twelve times
         id: scenarios
         if: steps.acquire.outcome == 'success'
-        run: python -B scripts/acceptance/next20_fzy_scenarios.py --host "${{ matrix.host }}" --phase qualification --repetitions 12
+        run: python -B scripts/acceptance/next20_fzy_scenarios.py --host "${{ matrix.host }}" --phase final-archive --repetitions 12
 
       - name: Restore exact source after a pre-scenario failure
         if: always() && steps.acquire.outcome == 'success' && steps.scenarios.outcome == 'skipped'
@@ -110,7 +110,7 @@ jobs:
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()
         with:
-          name: next20-fzy-development-${{ matrix.host }}-${{ github.run_id }}
+          name: next20-fzy-final-archive-${{ matrix.host }}-${{ github.run_id }}
           path: |
             artifacts/runner-readiness-next-twenty-project-pass/fzy/**
             artifacts/runner-readiness-next-twenty-project-pass/events/**
