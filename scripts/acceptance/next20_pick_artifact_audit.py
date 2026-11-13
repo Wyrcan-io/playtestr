@@ -17,7 +17,7 @@ def require(value, message):
         raise ValueError(message)
 
 
-def audit_host(row, archive_path, declaration, freeze):
+def audit_host(row, archive_path, declaration, freeze, phase="development", repetitions=1):
     host = row["host"]
     raw = Path(archive_path).read_bytes()
     require(len(raw) == row["artifact_bytes"] and digest(raw) == row["artifact_sha256"],
@@ -84,11 +84,13 @@ def audit_host(row, archive_path, declaration, freeze):
             f"{host}: installed runner is not the exact frozen rc.8 archive")
 
     expected = {scenario["id"]: scenario for scenario in declaration["scenarios"]}
-    require(len(expected) == 20 and row["attempt_count"] == 20,
+    require(len(expected) == 20 and row["attempt_count"] == 20 * repetitions,
             f"{host}: scenario contract or attempt count differs")
     outcomes = []
-    for scenario_id, contract in sorted(expected.items()):
-        report_path = f"pick/development/{host}/r01/{scenario_id}/report.json"
+    for repetition, (scenario_id, contract) in (
+            (repetition, item) for repetition in range(1, repetitions + 1)
+            for item in sorted(expected.items())):
+        report_path = f"pick/{phase}/{host}/r{repetition:02d}/{scenario_id}/report.json"
         report_raw = get(report_path)
         report = json.loads(report_raw)
         require(report.get("runner_version") == declaration["candidate"]
@@ -115,7 +117,7 @@ def audit_host(row, archive_path, declaration, freeze):
                 and case.get("spec_path") == spec_repo_path,
                 f"{host} {scenario_id}: executed contract or fixture differs from declaration")
         invocation = case["invocation_id"]
-        label = f"pick-development-{host}-r01-{scenario_id}"
+        label = f"pick-{phase}-{host}-r{repetition:02d}-{scenario_id}"
         started_rows = [json.loads(data) for name, data in payload.items()
                         if name.startswith("events/") and name.endswith("-started.json")
                         and json.loads(data).get("label") == label]
@@ -127,7 +129,7 @@ def audit_host(row, archive_path, declaration, freeze):
         launched = obj(base + "-launched.json")
         finished = obj(base + "-finished.json")
         require(all(event.get("id") == event_id and event.get("label") == label
-                    and event.get("project") == "pick" and event.get("phase") == "development"
+                    and event.get("project") == "pick" and event.get("phase") == phase
                     for event in (started, identified, launched, finished))
                 and started.get("ci_run_id") == row["run_id"]
                 and identified.get("identity", {}).get("sha256")
@@ -155,12 +157,12 @@ def audit_host(row, archive_path, declaration, freeze):
         require(digest(console) == finished.get("console_sha256")
                 and len(console) == finished.get("output_bytes"),
                 f"{host} {scenario_id}: retained runner console identity differs")
-        outcomes.append({"id": scenario_id, "invocation_id": invocation,
+        outcomes.append({"id": scenario_id, "repetition": repetition, "invocation_id": invocation,
                          "report_sha256": digest(report_raw), "status": "passed",
                          "target_exit": case["target"]["exit_code"],
                          "step_count": len(case["steps"])})
 
-    require(len(outcomes) == row["passed"] == 20 and row["failed"] == 0,
+    require(len(outcomes) == row["passed"] == 20 * repetitions and row["failed"] == 0,
             f"{host}: all-attempt reconciliation differs")
     return {"host": host, "provider_job_id": row["databaseId"],
             "provider_artifact_id": row["artifact_id"], "provider_bytes": len(raw),
@@ -170,8 +172,8 @@ def audit_host(row, archive_path, declaration, freeze):
             "candidate_archive_sha256": row["candidate_archive_sha256"],
             "candidate_binary_sha256": row["candidate_binary_sha256"],
             "upstream_tests": "passed", "source_restored_exact": True,
-            "target_and_descendant_cleanup": "confirmed", "attempt_count": 20,
-            "passed": 20, "failed": 0, "scenarios": outcomes}
+            "target_and_descendant_cleanup": "confirmed", "attempt_count": 20 * repetitions,
+            "passed": 20 * repetitions, "failed": 0, "scenarios": outcomes}
 
 
 def main():
@@ -179,8 +181,11 @@ def main():
     parser.add_argument("--manifest", type=Path, required=True)
     parser.add_argument("--linux-zip", type=Path, required=True)
     parser.add_argument("--darwin-zip", type=Path, required=True)
+    parser.add_argument("--phase", default="development")
+    parser.add_argument("--repetitions", type=int, default=1)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
+    require(args.phase and 1 <= args.repetitions <= 12, "invalid audit phase/repetition bound")
     manifest_raw = args.manifest.read_bytes()
     manifest = json.loads(manifest_raw)
     declaration_path = ROOT / manifest["scenario_declaration"]
@@ -201,24 +206,26 @@ def main():
         row["run_id"] = manifest["run_id"]
     require(set(rows) == {"linux", "darwin"} and len(manifest["jobs"]) == 2
             and all(row["status"] == "completed" and row["conclusion"] == "success"
-                    and row["attempt_count"] == 20 and row["passed"] == 20 and row["failed"] == 0
+                    and row["attempt_count"] == 20 * args.repetitions
+                    and row["passed"] == 20 * args.repetitions and row["failed"] == 0
                     for row in rows.values()), "provider native host matrix or outcomes are incomplete")
-    cells = [audit_host(rows[host], path, declaration, freeze)
+    cells = [audit_host(rows[host], path, declaration, freeze, args.phase, args.repetitions)
              for host, path in (("linux", args.linux_zip), ("darwin", args.darwin_zip))]
     receipt = {"schema_version": 1, "run_id": manifest["run_id"],
                "workflow_revision": manifest["head_sha"], "candidate_run_id": manifest["candidate_run_id"],
                "candidate_series": manifest["candidate_series"], "candidate_version": manifest["candidate_version"],
+               "phase": args.phase, "repetitions": args.repetitions,
                "scenario_declaration": manifest["scenario_declaration"],
                "scenario_declaration_sha256": manifest["scenario_declaration_sha256"],
                "provider_manifest_sha256": digest(manifest_raw), "hosts": cells,
-               "ordinary_invocations": 40, "distinct_scenarios": 20,
+               "ordinary_invocations": 40 * args.repetitions, "distinct_scenarios": 20,
                "scenario_project_credit": 0, "admission_credit": 0,
                "audit": "Provider ZIP digests/paths, candidate installs, source pin/build identity, exact declarations/fixtures, per-invocation source/candidate/spec/fixture identity, positive rendered-screen/exit steps, same-invocation workspace cleanup, process cleanup, and all 40 report/event/console records independently verified."}
     args.output.parent.mkdir(parents=True, exist_ok=True)
     with args.output.open("xb") as stream:
         stream.write((json.dumps(receipt, indent=2, sort_keys=True) + "\n").encode())
     print(json.dumps({"status": "audited", "output": str(args.output),
-                      "hosts": len(cells), "ordinary_invocations": 40,
+                      "hosts": len(cells), "ordinary_invocations": 40 * args.repetitions,
                       "project_credit": 0}, sort_keys=True))
 
 
