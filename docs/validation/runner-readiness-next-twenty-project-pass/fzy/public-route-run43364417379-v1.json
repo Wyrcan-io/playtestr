@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "project": "fzy",
+  "repository": "jhawthorn/fzy",
+  "source_pin": "34b88869d022e861da4846c4463aea3ddfb3ff30",
+  "source_archive_sha256": "d55d4d0dcbced2daa0dd16b42ee0fc31654bd038ff6a147b38580c233d62c967",
+  "candidate": "v0.4.0-rc.8",
+  "candidate_series": "native-exit-v3",
+  "run_id": 43364417379,
+  "run_attempt": 1,
+  "head_sha": "98a99b0fce1ba4077676e7b553714d30085818d4",
+  "workflow": ".github/workflows/runner-readiness-next20-fzy-public-route.yml",
+  "status": "passed-and-independently-audited",
+  "provider_artifacts": {
+    "linux": {
+      "job_id": 131685323560,
+      "artifact_id": 14009193783,
+      "artifact_bytes": 408969,
+      "artifact_sha256": "533ea398914c7a8747b6f20bb78d883778b0a459a84a017bfe46b0ccf1a83caa"
+    },
+    "darwin": {
+      "job_id": 131685323848,
+      "artifact_id": 14009811752,
+      "artifact_bytes": 409181,
+      "artifact_sha256": "c3a44fd9e9d748d4b6b1aa4b497b91e85f33aeaac13464c5308f8db47ee7e287"
+    }
+  },
+  "host_results": {
+    "linux": {"attempts": 8, "first_use": "passed", "diagnosis": "state_assertion_failure at step 4", "maintenance": "passed-selected-state-update", "relocation": "passed-unicode-and-spaces", "target_cleanup_confirmed": true},
+    "darwin": {"attempts": 8, "first_use": "passed", "diagnosis": "state_assertion_failure at step 4", "maintenance": "passed-selected-state-update", "relocation": "passed-unicode-and-spaces", "target_cleanup_confirmed": true}
+  },
+  "workflow_preview": "reviewed-only-not-dispatched",
+  "independent_audit": "fzy/public-route-artifact-audit-v1.json",
+  "independent_audit_sha256": "503ca2151d5626749ec5dc1df20c11c754e2bbb8f60f58433b2c1f044482d218",
+  "saved_state_coverage_credit": 0,
+  "human_participants": 0,
+  "usability": "unmeasured",
+  "project_admission_credit": 0,
+  "scope": "Public record/review/replay/save, wrong-byte diagnosis, selected-state update after a fixture change, relocation and preview passed and were independently audited. No CI workflow was dispatched and no human use was observed."
+}

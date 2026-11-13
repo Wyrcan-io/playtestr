@@ -1,0 +1,96 @@
+{
+  "admission_credit": 0,
+  "candidate": "v0.4.0-rc.8",
+  "candidate_series": "native-exit-v3",
+  "human_participants": 0,
+  "project": "fzy",
+  "public_route_host_passes": 2,
+  "results": [
+    {
+      "attempts": 8,
+      "candidate_archive_sha256": "fd3b2ba11b833562ae886f587eb246d1a4e5ab83a179618e2c881e74f3bb4316",
+      "candidate_binary_sha256": "4b48ade7670c4306e6fc50d96100389e731a16f09d1b6e8505499bc40332c476",
+      "diagnosis": "state_assertion_failure at step 4",
+      "expanded_bytes": 973775,
+      "first_use": "passed",
+      "host": "linux",
+      "maintenance": "passed",
+      "provider_artifact_id": 14009193783,
+      "relocation": "passed",
+      "reports": {
+        "diagnosis-report.json": {
+          "failure_category": "state_assertion_failure",
+          "sha256": "83313b6708bb94b68d51883b0862de364920c2ffd14d440e3c903b59b19611fe",
+          "status": "failed"
+        },
+        "first-use-report.json": {
+          "failure_category": null,
+          "sha256": "9a6571eeff6efda24d628ba6a559a07a9684e8b12c0930266b3efce73f0423a8",
+          "status": "passed"
+        },
+        "maintenance-report.json": {
+          "failure_category": null,
+          "sha256": "ebf83b8e6e4c5d85763b587805d15064879dc2171713ce442723308c13d03448",
+          "status": "passed"
+        },
+        "relocation-report.json": {
+          "failure_category": null,
+          "sha256": "a8026ad9b0412028594e2f6da95cc3fbf75c2994f2d63ec1242b3b7c74f9b125",
+          "status": "passed"
+        }
+      },
+      "saved_state_coverage_credit": 0,
+      "target_cleanup_confirmed": true,
+      "workflow_preview": "reviewed-only-not-dispatched",
+      "zip_bytes": 408969,
+      "zip_entries": 80,
+      "zip_sha256": "533ea398914c7a8747b6f20bb78d883778b0a459a84a017bfe46b0ccf1a83caa"
+    },
+    {
+      "attempts": 8,
+      "candidate_archive_sha256": "da50a7933c75b82dcb42b2f6829045edf2edfd0cb70afaf1b7f298823ac3ec60",
+      "candidate_binary_sha256": "49c657adbbad36c89cd7bb8866e5fe5782642d3fda24cda2b6878e91d8a035b3",
+      "diagnosis": "state_assertion_failure at step 4",
+      "expanded_bytes": 974451,
+      "first_use": "passed",
+      "host": "darwin",
+      "maintenance": "passed",
+      "provider_artifact_id": 14009811752,
+      "relocation": "passed",
+      "reports": {
+        "diagnosis-report.json": {
+          "failure_category": "state_assertion_failure",
+          "sha256": "8c8ae5e0b733b1248af3e0fab84e196119757a1f807fe8280f9b39cc60c2df41",
+          "status": "failed"
+        },
+        "first-use-report.json": {
+          "failure_category": null,
+          "sha256": "14b02fa2e900d54bec26ca88fc2bb5a8fa5ef76a833c44a4481b532112317ebe",
+          "status": "passed"
+        },
+        "maintenance-report.json": {
+          "failure_category": null,
+          "sha256": "fd2110b610bf7a8e90d56fa368d4fd0d06a8f6448734095069129e6a653dce75",
+          "status": "passed"
+        },
+        "relocation-report.json": {
+          "failure_category": null,
+          "sha256": "313aefa03c79b8d79d64d101b98b85102fdfb678794944380a1f08a41fdc5d43",
+          "status": "passed"
+        }
+      },
+      "saved_state_coverage_credit": 0,
+      "target_cleanup_confirmed": true,
+      "workflow_preview": "reviewed-only-not-dispatched",
+      "zip_bytes": 409181,
+      "zip_entries": 80,
+      "zip_sha256": "c3a44fd9e9d748d4b6b1aa4b497b91e85f33aeaac13464c5308f8db47ee7e287"
+    }
+  ],
+  "run_attempt": 1,
+  "run_id": 43364417379,
+  "saved_state_coverage_credit": 0,
+  "schema_version": 1,
+  "scope": "Independent bounded ZIP/provider, source/build/candidate, recorder spec/fixture, diagnosis/maintenance/relocation reports, workflow preview, event/identity, and process/source cleanup readback.",
+  "usability": "unmeasured"
+}
