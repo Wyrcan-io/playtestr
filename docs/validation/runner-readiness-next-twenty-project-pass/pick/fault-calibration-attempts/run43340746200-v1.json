@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "project": "pick",
+  "run_id": 43340746200,
+  "head_sha": "7c048acfb65d22dfb7bd561246f3cb55f44e7b16",
+  "phase": "source-fault-calibration",
+  "fault_id": "F01",
+  "attempted_mutation": {
+    "kind": "ignore_one_down_key",
+    "mutated_source_sha256": "66d1249a1ecae318d4057ccfde2a5b009c4667c2fd61b7a40cc7e411e02b905b",
+    "expected_failure_step": 10,
+    "expected_failure_categories": ["assertion_timeout"]
+  },
+  "hosts": [
+    {
+      "host": "linux",
+      "provider_artifact_id": 13999596098,
+      "provider_artifact_sha256": "243b12551e4fb6d25de195fedd491760a7ff90ad2403931556f11d70e608e359",
+      "baseline_report": "pick/fault-calibration/v1/F01/baseline/linux/report.json",
+      "baseline_report_sha256": "3f5c9ca756f97895ab96a76043894c0cb69e75e46684e1d55e846fc05373cf3a",
+      "baseline_status": "passed",
+      "fault_report": "pick/fault-calibration/v1/F01/fault/linux/report.json",
+      "fault_report_sha256": "0862a3caa1b3170e4c44ad2ed3c397928b223720be2b6af75d391c16e4c8cdb8",
+      "fault_status": "false-green",
+      "fault_failure": null,
+      "target_exit": 0
+    },
+    {
+      "host": "darwin",
+      "provider_artifact_id": 13997784921,
+      "provider_artifact_sha256": "e35595351a08ef1d6c5b1b532777b552bb82ac456cb7319ea276e687bc7b0086",
+      "baseline_report": "pick/fault-calibration/v1/F01/baseline/darwin/report.json",
+      "baseline_report_sha256": "c8e9eb6320e18b9e2029c36a0ac42128f5ee60afa37667ca90d819c3a9114b5a",
+      "baseline_status": "passed",
+      "fault_report": "pick/fault-calibration/v1/F01/fault/darwin/report.json",
+      "fault_report_sha256": "c2900c4a2a1176a7613eed27aa4d86b9973c205252fb6650452a676f8c32fc74",
+      "fault_status": "false-green",
+      "fault_failure": null,
+      "target_exit": 0
+    }
+  ],
+  "finding": "The report asserts text presence but not selected-row focus. At the tested viewport boundary, item29 is rendered even when the selection transition is suppressed; the unchanged E11 case therefore passes both baseline and corrupted target.",
+  "restoration_attempted": false,
+  "attempt_credit": 0,
+  "project_admission_credit": 0
+}

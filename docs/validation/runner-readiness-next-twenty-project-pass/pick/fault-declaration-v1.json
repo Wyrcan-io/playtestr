@@ -18,7 +18,7 @@
     {"id": "F03", "manifest": "pick/faults-v1/F03.json", "scenario_id": "N01", "kind": "selected_output"}
   ],
   "expected_attempts": 18,
-  "held_out_status": "Declarations were authored after v10 contract freeze and before any fault run. F01 reuses the useful long-list task after rc.7 E11 failures; its specific Down-key source mutation has not been executed before this calibration. F02 and F03 are distinct source mutations not previously exercised in the Pick campaign.",
+  "held_out_status": "F02 and F03 were declared after v10 freeze and before fault execution. The initial F01 Down-key mutant was a false green on both hosts; F01 is now a transparent in-campaign correction using a distinct PageDown mutation and checkpoint, so it is not claimed as blind or held out. The false-green attempt is retained in fault-calibration-attempts/run43340746200-v1.json.",
   "oracle": "The unchanged v10 rendered-screen, selected stdout and exact-exit contract must pass pristine and restored native builds, and must fail at the declared behavior step against each actual mutated Pick executable.",
   "admission_credit": 0
 }

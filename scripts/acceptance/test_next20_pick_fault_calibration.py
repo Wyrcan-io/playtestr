@@ -17,6 +17,12 @@ class PickFaultCalibrationTests(unittest.TestCase):
         self.assertEqual(freeze["version"], "v0.4.0-rc.8")
         self.assertEqual({fault["id"] for fault, _, _ in rows}, {"F01", "F02", "F03"})
         self.assertEqual({scenario["id"] for _, _, scenario in rows}, {"E11", "E02", "N01"})
+        f01 = next(fault for fault, _, _ in rows if fault["id"] == "F01")
+        e11 = next(scenario for _, _, scenario in rows if scenario["id"] == "E11")
+        e11_spec = json.loads((calibration.DOC / e11["spec_path"]).read_text(encoding="utf-8"))
+        self.assertEqual(f01["expected_failure_step"], 6)
+        self.assertIs(f01["held_out"], False)
+        self.assertEqual(e11_spec["steps"][5], {"expect": "item21"})
         for fault, _, scenario in rows:
             spec = json.loads((calibration.DOC / scenario["spec_path"]).read_text(encoding="utf-8"))
             self.assertGreaterEqual(len(spec["steps"]), fault["expected_failure_step"])
