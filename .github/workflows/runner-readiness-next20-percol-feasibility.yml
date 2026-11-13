@@ -43,6 +43,7 @@ jobs:
           mkdir -p "$RUNNER_TEMP/percol-feasibility"
           cd "$RUNNER_TEMP/percol-feasibility"
           PERCOL_PIN=4b28037e328da3d0fe8165c11b800cbaddcb525e
+          mkdir -p "$GITHUB_WORKSPACE/artifacts/runner-readiness-next-twenty-project-pass"
           python -B "$GITHUB_WORKSPACE/scripts/acceptance/next20_acquire.py" percol
           SOURCE_DIR="$GITHUB_WORKSPACE/artifacts/runner-readiness-next-twenty-project-pass/active/percol/src"
           cp -a "$SOURCE_DIR" percol-source

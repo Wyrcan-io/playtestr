@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "project": "percol",
+  "workflow": ".github/workflows/runner-readiness-next20-percol-feasibility.yml",
+  "run_id": 43370210627,
+  "head_sha": "a26703b3bdc87f49e6e383c0cc9eb89ff5acde6c",
+  "outcome": "both jobs stopped before source acquisition",
+  "failure_phase": "source-acquisition workspace initialization",
+  "failure": "The existing acquisition helper expects the campaign artifacts parent to exist before it creates its active directory; the clean hosted checkout had no artifacts parent",
+  "jobs": {
+    "macos-latest": {
+      "job_id": 131703958330,
+      "provider_logs": "https://api.github.com/repos/Wyrcan-io/playtestr/actions/jobs/131703958330/logs",
+      "artifact_uploaded": false
+    },
+    "ubuntu-latest": {
+      "job_id": 131703958573,
+      "provider_logs": "https://api.github.com/repos/Wyrcan-io/playtestr/actions/jobs/131703958573/logs",
+      "artifact_uploaded": false
+    }
+  },
+  "credit": {
+    "source_identity": 0,
+    "native_runtime": 0,
+    "scenarios": 0,
+    "admission": 0
+  },
+  "correction": "Create the artifacts campaign parent before invoking the bounded source-acquisition helper."
+}
