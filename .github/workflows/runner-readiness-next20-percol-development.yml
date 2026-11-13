@@ -1,0 +1,294 @@
+name: Runner readiness next20 Percol native development
+
+on:
+  push:
+    branches:
+      - work/p0-p2-implementation
+    paths:
+      - .github/workflows/runner-readiness-next20-percol-development.yml
+      - scripts/acceptance/next20_percol_scenarios.py
+      - scripts/acceptance/test_next20_percol_scenarios.py
+      - docs/validation/runner-readiness-next-twenty-project-pass/percol/**
+      - docs/validation/runner-readiness-next-twenty-project-pass/replacement-candidate-freeze-native-exit-v3.json
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: read
+
+concurrency:
+  group: playtestr-next20-percol-development-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  native-development:
+    name: Percol exact candidate (${{ matrix.host }})
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        include:
+          - host: linux
+            os: ubuntu-24.04
+            candidate_artifact: next20-private-replacement-Linux
+            candidate_archive: artifacts/runner-readiness-next-twenty-project-pass/candidate-download/replacement-candidate/native-exit-v3/linux-amd64/dist/playtestr_0.4.0-rc.8_linux_amd64.tar.gz
+          - host: darwin
+            os: macos-15
+            candidate_artifact: next20-private-replacement-macOS
+            candidate_archive: artifacts/runner-readiness-next-twenty-project-pass/candidate-download/replacement-candidate/native-exit-v3/darwin-arm64/dist/playtestr_0.4.0-rc.8_darwin_arm64.tar.gz
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 60
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      PYTHONIOENCODING: utf-8
+      TEMP: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/tmp
+      TMP: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/tmp
+      TMPDIR: ${{ github.workspace }}/artifacts/runner-readiness-next-twenty-project-pass/tmp
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+          set-safe-directory: false
+
+      - name: Prepare campaign-owned temporary paths
+        run: mkdir -p artifacts/runner-readiness-next-twenty-project-pass/tmp
+
+      - name: Check the frozen Percol contract and focused harness controls
+        working-directory: scripts/acceptance
+        run: python -B -m unittest test_next20_percol_scenarios test_next20_target_cleanup -v
+
+      - name: Acquire the selected pinned Percol source
+        id: acquire
+        run: python -B scripts/acceptance/next20_acquire.py percol
+
+      - name: Download and install the exact frozen rc.8 candidate
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 43330369205
+          name: ${{ matrix.candidate_artifact }}
+          path: artifacts/runner-readiness-next-twenty-project-pass/candidate-download
+
+      - name: Verify the exact native candidate archive
+        run: >-
+          python -B scripts/acceptance/next20_candidate_install.py
+          --series native-exit-v3 --archive "${{ matrix.candidate_archive }}"
+
+      - name: Verify the reviewed Percol cases and candidate binding
+        run: python -B scripts/acceptance/next20_percol_scenarios.py --verify
+
+      - name: Install native CPython build dependencies
+        run: |
+          set -euo pipefail
+          if [[ "$RUNNER_OS" == Linux ]]; then
+            sudo apt-get update
+            sudo apt-get install -y gnupg build-essential libncurses-dev libreadline-dev zlib1g-dev libsqlite3-dev libffi-dev
+            dpkg-query -W -f='${Package}=${Version}\n' libncurses-dev libffi-dev | tee "$RUNNER_TEMP/percol-linux-dependencies.txt"
+          else
+            brew install gnupg ncurses libffi
+            xcode-select -p
+            brew list --versions ncurses libffi | tee "$RUNNER_TEMP/percol-brew-dependencies.txt"
+          fi
+
+      - name: Build pinned CPython, install six, and record target runtime identity
+        id: runtime
+        run: |
+          set -euo pipefail
+          TARGET="$GITHUB_WORKSPACE/artifacts/runner-readiness-next-twenty-project-pass/active/percol"
+          EVIDENCE="$GITHUB_WORKSPACE/artifacts/runner-readiness-next-twenty-project-pass/percol/builds/run-$GITHUB_RUN_ID-${{ matrix.host }}"
+          mkdir -p "$EVIDENCE" "$TARGET/wheels" "$TARGET/six-site"
+          if [[ -f "$RUNNER_TEMP/percol-linux-dependencies.txt" ]]; then
+            cp "$RUNNER_TEMP/percol-linux-dependencies.txt" "$EVIDENCE/native-dependencies.txt"
+          fi
+          if [[ -f "$RUNNER_TEMP/percol-brew-dependencies.txt" ]]; then
+            cp "$RUNNER_TEMP/percol-brew-dependencies.txt" "$EVIDENCE/native-dependencies.txt"
+          fi
+          cd "$RUNNER_TEMP"
+          PYTHON_URL=https://www.python.org/ftp/python/2.7.18
+          curl --fail --location --retry 3 --max-time 90 "$PYTHON_URL/Python-2.7.18.tgz" -o Python-2.7.18.tgz
+          curl --fail --location --retry 3 --max-time 90 "$PYTHON_URL/Python-2.7.18.tgz.asc" -o Python-2.7.18.tgz.asc
+          curl --fail --location --retry 3 --max-time 90 \
+            'https://keybase.io/bp/pgp_keys.asc?fingerprint=c01e1cad5ea2c4f0b8e3571504c367c218add4ff' \
+            -o python-release-key-current.asc
+          gpg --batch --import python-release-key-current.asc
+          FINGERPRINTS=$(gpg --with-colons --list-keys | awk -F: '$1 == "fpr" {print toupper($10)}')
+          printf '%s\n' "$FINGERPRINTS" | grep -qx C01E1CAD5EA2C4F0B8E3571504C367C218ADD4FF
+          gpg --list-packets Python-2.7.18.tgz.asc | tee "$EVIDENCE/python-source-signature-packets.txt"
+          gpg --batch --verify Python-2.7.18.tgz.asc Python-2.7.18.tgz
+          PY_SHA=$(shasum -a 256 Python-2.7.18.tgz | awk '{print $1}')
+
+          python -m pip download --disable-pip-version-check --no-deps --only-binary=:all: \
+            --dest "$TARGET/wheels" six==1.16.0
+          SIX_WHEEL="$TARGET/wheels/six-1.16.0-py2.py3-none-any.whl"
+          SIX_SHA=$(shasum -a 256 "$SIX_WHEEL" | awk '{print $1}')
+          test "$SIX_SHA" = 8abb2f1d86890a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254
+          unzip -q "$SIX_WHEEL" -d "$TARGET/six-site"
+          python - "$TARGET/wheels.json" "$TARGET/six-site" "$SIX_SHA" <<'PY'
+          import hashlib,json,sys
+          from pathlib import Path
+          root=Path(sys.argv[2])
+          files={p.relative_to(root).as_posix():hashlib.sha256(p.read_bytes()).hexdigest()
+                 for p in sorted(root.rglob('*')) if p.is_file()}
+          Path(sys.argv[1]).write_text(json.dumps(dict(schema_version=1,project='percol',
+              six_version='1.16.0',wheel_sha256=sys.argv[3],installed_files=files),
+              sort_keys=True,indent=2)+'\n',encoding='utf-8')
+          PY
+
+          PY_SOURCE_DIR="$RUNNER_TEMP/percol-python-source"
+          PYTHON_BUILD_FILESYSTEM=host-default
+          if [[ "$RUNNER_OS" == macOS ]]; then
+            PYTHON_BUILD_ROOT="$RUNNER_TEMP/percol-case-sensitive"
+            PYTHON_BUILD_IMAGE="$RUNNER_TEMP/percol-case-sensitive.sparseimage"
+            mkdir -p "$PYTHON_BUILD_ROOT"
+            hdiutil create -size 2g -type SPARSE -fs HFSX -volname percol-python "$PYTHON_BUILD_IMAGE"
+            hdiutil attach -nobrowse -mountpoint "$PYTHON_BUILD_ROOT" "$PYTHON_BUILD_IMAGE"
+            diskutil info "$PYTHON_BUILD_ROOT" | tee "$EVIDENCE/case-sensitive-filesystem.txt"
+            grep -qi 'Case-sensitive' "$EVIDENCE/case-sensitive-filesystem.txt"
+            PY_SOURCE_DIR="$PYTHON_BUILD_ROOT/python-source"
+            PYTHON_BUILD_FILESYSTEM=case-sensitive-hfs-plus
+          fi
+          mkdir "$PY_SOURCE_DIR"
+          tar -xzf Python-2.7.18.tgz -C "$PY_SOURCE_DIR" --strip-components=1
+          PYTHON_BUILD_PATCH=none
+          if [[ "$RUNNER_OS" == macOS ]]; then
+            python - "$PY_SOURCE_DIR/configure" "$EVIDENCE/python-configure-arm64.patch" <<'PY'
+          from pathlib import Path
+          import sys
+          path = Path(sys.argv[1])
+          text = path.read_text()
+          start = text.index("    else\n    \tcase `/usr/bin/arch` in")
+          wildcard = text.index("    \t*)", start)
+          insertion = "    \tarm64)\n    \t\tMACOSX_DEFAULT_ARCH=\"arm64\"\n    \t\t;;\n"
+          if "arm64)\n    \t\tMACOSX_DEFAULT_ARCH=\"arm64\"" in text:
+              raise SystemExit("refusing to apply duplicate native arm64 configure patch")
+          path.write_text(text[:wildcard] + insertion + text[wildcard:])
+          Path(sys.argv[2]).write_text(
+              "CPython 2.7.18 generated configure compatibility patch for native Apple Silicon.\n"
+              "Adds arm64 to the native macOS architecture case; no cross-compilation or target source change.\n")
+          PY
+            PYTHON_BUILD_PATCH=configure-arm64
+          fi
+          cd "$PY_SOURCE_DIR"
+          if [[ "$RUNNER_OS" == macOS ]]; then
+            NCURSES_PREFIX=$(brew --prefix ncurses)
+            LIBFFI_PREFIX=$(brew --prefix libffi)
+            export CPPFLAGS="-I$NCURSES_PREFIX/include -I$LIBFFI_PREFIX/include ${CPPFLAGS:-}"
+            export LDFLAGS="-L$NCURSES_PREFIX/lib -L$LIBFFI_PREFIX/lib ${LDFLAGS:-}"
+            export PKG_CONFIG_PATH="$LIBFFI_PREFIX/lib/pkgconfig:$NCURSES_PREFIX/lib/pkgconfig:${PKG_CONFIG_PATH:-}"
+            ./configure --prefix="$TARGET/runtime-python" --with-ensurepip=no --with-system-ffi
+            export DYLD_LIBRARY_PATH="$LIBFFI_PREFIX/lib:$NCURSES_PREFIX/lib${DYLD_LIBRARY_PATH:+:$DYLD_LIBRARY_PATH}"
+          else
+            ./configure --prefix="$TARGET/runtime-python" --with-ensurepip=no
+          fi
+          make -j2 > "$EVIDENCE/cpython-make.log" 2>&1 || { tail -n 80 "$EVIDENCE/cpython-make.log"; exit 1; }
+          make install > "$EVIDENCE/cpython-install.log" 2>&1 || { tail -n 80 "$EVIDENCE/cpython-install.log"; exit 1; }
+          PYTHON="$TARGET/runtime-python/bin/python2.7"
+          PYTHONPATH="$TARGET/src:$TARGET/six-site" PYTHONDONTWRITEBYTECODE=1 \
+            "$PYTHON" -c 'import sys, curses, six, percol; assert sys.version_info[:3] == (2, 7, 18); print("CPython", sys.version.split()[0]); print("curses", curses.__file__); print("six", six.__version__); print("Percol import", percol.__file__)'
+          PY_SHA=$(shasum -a 256 "$RUNNER_TEMP/Python-2.7.18.tgz" | awk '{print $1}')
+          SIX_SHA=$(shasum -a 256 "$SIX_WHEEL" | awk '{print $1}')
+          PER_SHA=$(python -c 'import json,sys; print(json.load(open(sys.argv[1]))["archive_sha256"])' "$TARGET/acquisition.json")
+          PER_PIN=$(python -c 'import json,sys; print(json.load(open(sys.argv[1]))["pin"])' "$TARGET/acquisition.json")
+          test "$PER_PIN" = 4b28037e328da3d0fe8165c11b800cbaddcb525e
+          cp "$RUNNER_TEMP/Python-2.7.18.tgz" "$EVIDENCE/Python-2.7.18.tgz"
+          cp "$RUNNER_TEMP/Python-2.7.18.tgz.asc" "$EVIDENCE/Python-2.7.18.tgz.asc"
+          cp "$RUNNER_TEMP/python-release-key-current.asc" "$EVIDENCE/python-release-key-current.asc"
+          cp "$SIX_WHEEL" "$EVIDENCE/six-1.16.0-py2.py3-none-any.whl"
+          cp "$PY_SOURCE_DIR/configure" "$EVIDENCE/python-source-configure"
+          cp "$PY_SOURCE_DIR/config.log" "$EVIDENCE/python-source-config.log"
+          BUILD_PATCH_SHA=none
+          if [[ -f "$EVIDENCE/python-configure-arm64.patch" ]]; then
+            BUILD_PATCH_SHA=$(shasum -a 256 "$EVIDENCE/python-configure-arm64.patch" | awk '{print $1}')
+          fi
+          PYTHON_SHA=$(shasum -a 256 "$PYTHON" | awk '{print $1}')
+          python - "$TARGET/runtime.json" "$TARGET/build.json" "$PYTHON" "$PYTHON_SHA" \
+            "$PER_PIN" "$PER_SHA" "$PY_SHA" "$SIX_SHA" "$PYTHON_BUILD_FILESYSTEM" "$PYTHON_BUILD_PATCH" "$BUILD_PATCH_SHA" <<'PY'
+          import json,sys
+          from pathlib import Path
+          runtime,build,python_path,python_sha,pin,per_sha,py_sha,six_sha,fs,patch,patch_sha=sys.argv[1:]
+          def put(path,value): Path(path).write_text(json.dumps(value,sort_keys=True,indent=2)+'\n',encoding='utf-8')
+          put(runtime,dict(schema_version=1,kind='python',python=python_path,python_sha256=python_sha))
+          put(build,dict(schema_version=1,project='percol',host='linux' if fs=='host-default' else 'darwin',
+              pin=pin,source_archive_sha256=per_sha,python_version='2.7.18',python_archive_sha256=py_sha,
+              python_sha256=python_sha,six_version='1.16.0',six_wheel_sha256=six_sha,
+              python_build_filesystem=fs,python_build_patch=patch,python_build_patch_sha256=patch_sha,
+              qualification_scope='native Percol development prerequisites only; no admission until independent artifact and model audits'))
+          PY
+          echo "PERCOL_PYTHON=$PYTHON" >> "$GITHUB_ENV"
+          echo "PERCOL_SOURCE=$TARGET/src" >> "$GITHUB_ENV"
+          echo "PYTHONPATH=$TARGET/src:$TARGET/six-site" >> "$GITHUB_ENV"
+          if [[ "$RUNNER_OS" == macOS ]]; then
+            echo "DYLD_LIBRARY_PATH=$LIBFFI_PREFIX/lib:$NCURSES_PREFIX/lib" >> "$GITHUB_ENV"
+          fi
+          echo "percol_pin=$PER_PIN" | tee "$EVIDENCE/runtime-identity.txt"
+          echo "python_sha256=$PYTHON_SHA" | tee -a "$EVIDENCE/runtime-identity.txt"
+          echo "six_sha256=$SIX_SHA" | tee -a "$EVIDENCE/runtime-identity.txt"
+          echo "python_build_filesystem=$PYTHON_BUILD_FILESYSTEM" | tee -a "$EVIDENCE/runtime-identity.txt"
+          echo "python_build_patch_sha256=$BUILD_PATCH_SHA" | tee -a "$EVIDENCE/runtime-identity.txt"
+
+      - name: Run the twenty reviewed Percol workflows once
+        id: scenarios
+        run: python -B scripts/acceptance/next20_percol_scenarios.py --host "${{ matrix.host }}" --phase development --repetitions 1
+
+      - name: Preserve Python runtime bundle and remove only verified Python aliases
+        if: always() && steps.runtime.outcome == 'success'
+        run: |
+          set -euo pipefail
+          TARGET="$GITHUB_WORKSPACE/artifacts/runner-readiness-next-twenty-project-pass/active/percol"
+          EVIDENCE="$GITHUB_WORKSPACE/artifacts/runner-readiness-next-twenty-project-pass/percol/builds/run-$GITHUB_RUN_ID-${{ matrix.host }}"
+          if [[ -d "$TARGET/runtime-python" ]]; then
+            tar -czf "$EVIDENCE/python-runtime.tar.gz" -C "$TARGET" runtime-python
+            python - "$TARGET/runtime-python" "$EVIDENCE/python-runtime-links.json" <<'PY'
+          import json,os,sys
+          from pathlib import Path
+          root=Path(sys.argv[1]).resolve(strict=True)
+          links=[]
+          for path in sorted(root.rglob('*')):
+              if not path.is_symlink(): continue
+              resolved=path.resolve(strict=True)
+              resolved.relative_to(root)
+              if path.name not in {'python','python2','python-config'}:
+                  raise SystemExit('unreviewed CPython install symlink: '+str(path.relative_to(root)))
+              links.append({'path':path.relative_to(root).as_posix(),'target':os.readlink(path)})
+              path.unlink()
+          Path(sys.argv[2]).write_text(json.dumps({'removed_aliases':links},sort_keys=True,indent=2)+'\n',encoding='utf-8')
+          PY
+          fi
+
+      - name: Detach the temporary case-sensitive CPython build volume
+        if: always() && matrix.host == 'darwin'
+        run: |
+          set -euo pipefail
+          BUILD_ROOT="$RUNNER_TEMP/percol-case-sensitive"
+          if hdiutil info | grep -Fq "$BUILD_ROOT"; then
+            hdiutil detach "$BUILD_ROOT"
+            echo "case_sensitive_build_volume_detached=true"
+          else
+            echo "case_sensitive_build_volume_detached=not_mounted"
+          fi
+
+      - name: Retain reviewed source and target cleanup proof
+        if: always() && steps.acquire.outcome == 'success'
+        run: python -B scripts/acceptance/next20_target_cleanup.py --project percol --include-active-case-evidence
+
+      - name: Check campaign storage limits after cleanup
+        if: always() && steps.acquire.outcome == 'success'
+        run: python -B scripts/acceptance/next20_storage.py percol
+
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: next20-percol-development-${{ matrix.host }}-${{ github.run_id }}
+          path: |
+            artifacts/runner-readiness-next-twenty-project-pass/percol/**
+            artifacts/runner-readiness-next-twenty-project-pass/events/**
+            artifacts/runner-readiness-next-twenty-project-pass/identities/**
+            artifacts/runner-readiness-next-twenty-project-pass/active/percol/**
+            artifacts/runner-readiness-next-twenty-project-pass/candidate-native-exit-v3/${{ matrix.host }}/installed.json
+          if-no-files-found: warn
+          retention-days: 30
+          include-hidden-files: true

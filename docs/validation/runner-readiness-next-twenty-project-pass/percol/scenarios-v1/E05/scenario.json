@@ -1,0 +1,53 @@
+{
+  "version": 3,
+  "name": "Keep an unmatched query interactive and cancellable",
+  "command": [
+    "/bin/sh",
+    "-c",
+    "exec \"$PERCOL_PYTHON\" \"$PERCOL_SOURCE/bin/percol\" < choices.txt > result.txt"
+  ],
+  "workspace": {
+    "fixture": "fixtures",
+    "cwd": ".",
+    "home": "temporary",
+    "temp": "temporary"
+  },
+  "env": {
+    "TERM": "xterm-256color",
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8"
+  },
+  "inherit_env": [
+    "PATH",
+    "PERCOL_PYTHON",
+    "PERCOL_SOURCE",
+    "PYTHONPATH",
+    "DYLD_LIBRARY_PATH"
+  ],
+  "width": 80,
+  "height": 12,
+  "timeout_ms": 20000,
+  "run_timeout_ms": 60000,
+  "max_output_bytes": 1048576,
+  "steps": [
+    {
+      "text": "missing"
+    },
+    {
+      "expect": "missing"
+    },
+    {
+      "key": "CtrlC"
+    },
+    {
+      "exit": 1
+    },
+    {
+      "state": {
+        "path": "result.txt",
+        "kind": "file",
+        "bytes_base64": ""
+      }
+    }
+  ]
+}

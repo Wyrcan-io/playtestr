@@ -54,10 +54,19 @@ CPython arm64 support.
 
 The next native Mac build exposed CPython 2.7's `Python/` source directory and
 `python` executable collision on the hosted runner's case-insensitive volume.
-The follow-up uses a temporary case-sensitive APFS image on that same macOS
-host and records the build logs, then detaches the image in an always-run
+The follow-up uses a temporary case-sensitive HFS+ sparse image on that same
+macOS host, records the build logs, then detaches the image in an always-run
 cleanup step. This preserves native macOS execution while addressing the
 interpreter's source-tree layout requirement.
+
+Static inspection found the documented `--auto-fail` implementation appears
+inverted: `Percol.has_no_candidate` is assigned the result of
+`has_nth_value(0)`, which is true when the first candidate exists, and the CLI
+cancels when that value is true. The scenario contract therefore keeps empty
+results interactive and cancels them with Ctrl-C; it does not claim or qualify
+`--auto-fail`. Escape is interpreted as a meta-key prefix in the source, so the
+selected cancellation contract uses Ctrl-C. These option/key boundaries remain
+explicit limitations rather than silent compatibility claims.
 
 The pinned source archive checksum, exact 32-file tree manifest and MIT notice
 hash are independently bound in `source-artifact-audit-v1.json`. The feasibility

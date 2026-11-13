@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "project": "percol",
+  "workflow": ".github/workflows/runner-readiness-next20-percol-feasibility.yml",
+  "run_id": 43374280360,
+  "head_sha": "0e0fa72dc946f86e15497fc8a51ba130ebca5ef4",
+  "outcome": "native Linux amd64 and macOS arm64 CPython 2.7.18 builds both imported pinned Percol and six 1.16.0",
+  "source": {
+    "repository": "mooz/percol",
+    "pin": "4b28037e328da3d0fe8165c11b800cbaddcb525e",
+    "archive_sha256": "b4e8422e57faf27a9331610bea934d79d6f5e53fa893e8b95c8fb70334f60df6",
+    "entries": 39,
+    "expanded_bytes": 111373,
+    "license_path": "debian/copyright",
+    "license_sha256": "a9f094325acd3fb9b3702b3f25ddda3f6ec635d13078b3d018fc73065e4940fa",
+    "build_hooks_executed": false
+  },
+  "runtime": {
+    "cpython": "2.7.18",
+    "cpython_archive_sha256": "da3080e3b488f648a3d7a4560ddee895284c3380b11d6de75edb986526b9a814",
+    "signature": "Good signature",
+    "signer_fingerprint": "C01E1CAD5EA2C4F0B8E3571504C367C218ADD4FF",
+    "six": "1.16.0",
+    "six_wheel_sha256": "8abb2f1d86890a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254",
+    "macos_build_filesystem": "Case-sensitive HFS+",
+    "macos_build_patch_sha256": "5a239691026ee00a3205ca98b0132efbeee9f90f9a757822dfe95b3309d8046d"
+  },
+  "jobs": {
+    "ubuntu-latest": {
+      "job_id": 131716999930,
+      "artifact_id": 14013932571,
+      "provider_artifact_sha256": "be14cb966218fa9bfb957bece2211cb4f41c43ce861b4a9b8790d11c89379ba4",
+      "downloaded_artifact_sha256": "be14cb966218fa9bfb957bece2211cb4f41c43ce861b4a9b8790d11c89379ba4",
+      "host": "Linux/X64",
+      "result": "CPython, six, and Percol imports passed"
+    },
+    "macos-latest": {
+      "job_id": 131717000231,
+      "artifact_id": 14014086705,
+      "provider_artifact_sha256": "f9cc52655d22294ddc0fbe98585cba8c5242c94ca3931b2051d119db94eebba8",
+      "downloaded_artifact_sha256": "f9cc52655d22294ddc0fbe98585cba8c5242c94ca3931b2051d119db94eebba8",
+      "host": "macOS/ARM64",
+      "result": "case-sensitive HFS+ verified; CPython, six, and Percol imports passed"
+    }
+  },
+  "independent_artifact_readback": {
+    "provider_digests_matched_downloads": true,
+    "percol_source_archive_sha256_matched_on_both_hosts": true,
+    "cpython_source_sha256_matched_on_both_hosts": true,
+    "six_wheel_sha256_matched": true,
+    "readback_method": "downloaded ZIP SHA-256 checked locally; both packets extracted and their feasibility receipts, acquisition manifests, source archives, runtime archive hashes, signatures, and macOS filesystem personality read back"
+  },
+  "credit": {
+    "source_identity": "previously independently audited and re-confirmed",
+    "linux_runtime_feasibility": "passed",
+    "macos_runtime_feasibility": "passed",
+    "pty_scenarios": 0,
+    "project_admission": 0
+  },
+  "scope": "runtime feasibility only; not a Percol interaction, Playtestr candidate, or project admission"
+}
