@@ -78,6 +78,24 @@ jobs:
 
           mkdir python-source
           tar -xzf Python-2.7.18.tgz -C python-source --strip-components=1
+          PYTHON_BUILD_PATCH=none
+          if [[ "$RUNNER_OS" == macOS ]]; then
+            python - <<'PY'
+          from pathlib import Path
+          path = Path("python-source/configure")
+          text = path.read_text()
+          start = text.index("    else\n    \tcase `/usr/bin/arch` in")
+          wildcard = text.index("    \t*)", start)
+          insertion = "    \tarm64)\n    \t\tMACOSX_DEFAULT_ARCH=\"arm64\"\n    \t\t;;\n"
+          if "arm64)\n    \t\tMACOSX_DEFAULT_ARCH=\"arm64\"" in text:
+              raise SystemExit("refusing to apply duplicate native arm64 configure patch")
+          path.write_text(text[:wildcard] + insertion + text[wildcard:])
+          Path("python-configure-arm64.patch").write_text(
+              "CPython 2.7.18 generated configure compatibility patch for native Apple Silicon.\n"
+              "Adds arm64 to the native macOS architecture case; no cross-compilation or target source change.\n")
+          PY
+            PYTHON_BUILD_PATCH=configure-arm64
+          fi
           cd python-source
           ./configure --prefix="$RUNNER_TEMP/percol-feasibility/python" --with-ensurepip=no
           make -j2
@@ -94,6 +112,10 @@ jobs:
             echo "six_version=1.16.0"
             echo "six_wheel_sha256=$SIX_SHA"
             echo "percol_import=passed"
+            echo "python_build_patch=$PYTHON_BUILD_PATCH"
+            if [[ -f python-configure-arm64.patch ]]; then
+              echo "python_build_patch_sha256=$(shasum -a 256 python-configure-arm64.patch | awk '{print $1}')"
+            fi
             echo "qualification_scope=source/runtime feasibility only; no PTY scenario or admission credit"
           } | tee feasibility.txt
 

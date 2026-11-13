@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "project": "percol",
+  "workflow": ".github/workflows/runner-readiness-next20-percol-feasibility.yml",
+  "run_id": 43371421298,
+  "head_sha": "4903473b7d9a3cc8db0e9c0b50d27ed3e6a3ddac",
+  "outcome": "native Linux feasibility passed; native macOS feasibility failed in upstream CPython configure",
+  "source": {
+    "pin": "4b28037e328da3d0fe8165c11b800cbaddcb525e",
+    "archive_sha256": "b4e8422e57faf27a9331610bea934d79d6f5e53fa893e8b95c8fb70334f60df6",
+    "python_source_signature": "Good signature",
+    "python_source_signer_fingerprint": "C01E1CAD5EA2C4F0B8E3571504C367C218ADD4FF",
+    "six_wheel_sha256": "8abb2f1d86890a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254"
+  },
+  "jobs": {
+    "ubuntu-latest": {
+      "job_id": 131707816990,
+      "artifact_id": 14012513529,
+      "artifact_sha256": "ce9cb9c95fd885304e830efd493c518e5c843bd0d72476d46557633c75539d5e",
+      "result": "CPython 2.7.18 built; six 1.16.0 imported; pinned Percol package imported"
+    },
+    "macos-latest": {
+      "job_id": 131707817351,
+      "artifact_id": 14012338577,
+      "artifact_sha256": "fab100a3eae227ae48dfc31a56dd25220ff705e58a106cc4c7ac315c0f4d8586",
+      "result": "configure: error: Unexpected output of 'arch' on OSX (native arm64)"
+    }
+  },
+  "credit": {
+    "source_identity": "independently audited",
+    "linux_runtime_feasibility": "passed",
+    "macos_runtime_feasibility": 0,
+    "pty_scenarios": 0,
+    "public_route": 0,
+    "project_admission": 0
+  },
+  "correction": "A narrow patch in the isolated signed CPython source build adds native arm64 recognition to generated configure. It does not alter Percol or cross-compile."
+}
