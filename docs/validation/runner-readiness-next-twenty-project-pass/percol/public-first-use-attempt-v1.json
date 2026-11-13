@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "project": "percol",
+  "attempt_id": "public-first-use-v1",
+  "run_id": 43389629576,
+  "workflow": ".github/workflows/runner-readiness-next20-percol-development.yml",
+  "commit": "b987c00ea2c5faf8fae8f9174dc9ad62117274fa",
+  "run_url": "https://github.com/Wyrcan-io/playtestr/actions/runs/43389629576",
+  "run_conclusion": "failure",
+  "phase": "public-authoring",
+  "candidate": "v0.4.0-rc.8",
+  "host_results": [
+    {
+      "host": "linux-amd64",
+      "job_id": 131766183701,
+      "artifact_id": 14019453575,
+      "artifact_bytes": 52328999,
+      "provider_sha256": "485b4560672f0d708c3d4844643cc58dd3f7d7691adc1b259801058d0986f38a",
+      "downloaded_zip": "local-only: artifacts/runner-readiness-next-twenty-project-pass/retained/percol-first-use-run43389629576-linux.zip",
+      "downloaded_sha256": "485b4560672f0d708c3d4844643cc58dd3f7d7691adc1b259801058d0986f38a",
+      "development_scenarios_passed": 20,
+      "public_route_started": false,
+      "candidate_shell_invocations": 0,
+      "recorder_controls": 0,
+      "failure": "The harness constructed NextCampaign(phase=public-first-use), but readiness_evidence.py rejects undeclared phases before the first candidate invocation.",
+      "source_runtime_cleanup": "passed",
+      "storage_limit": "passed"
+    },
+    {
+      "host": "macos-arm64",
+      "job_id": 131766183498,
+      "artifact_id": 14019384058,
+      "artifact_bytes": 47540756,
+      "provider_sha256": "cdc73c59e34d488836c4f0650d7268f43ea2d7d70af841266019e0ef7fffe49a",
+      "downloaded_zip": "local-only: artifacts/runner-readiness-next-twenty-project-pass/retained/percol-first-use-run43389629576-macos.zip",
+      "downloaded_sha256": "cdc73c59e34d488836c4f0650d7268f43ea2d7d70af841266019e0ef7fffe49a",
+      "development_scenarios_passed": 20,
+      "public_route_started": false,
+      "candidate_shell_invocations": 0,
+      "recorder_controls": 0,
+      "failure": "The harness constructed NextCampaign(phase=public-first-use), but readiness_evidence.py rejects undeclared phases before the first candidate invocation.",
+      "source_runtime_cleanup": "passed",
+      "storage_limit": "passed",
+      "case_sensitive_build_volume_detached": true
+    }
+  ],
+  "correction": "The script now uses the already declared public-authoring evidence phase. The actual 3-invocation/10-control public route remains unattempted and will be rerun unchanged on both hosts.",
+  "admission_credit": 0
+}

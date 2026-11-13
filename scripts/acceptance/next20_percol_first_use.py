@@ -70,7 +70,7 @@ async def main():
     env.update({"TERM": "xterm-256color", "LANG": "C.UTF-8", "LC_ALL": "C.UTF-8",
                 "TMPDIR": str(RAW / "tmp"), "TMP": str(RAW / "tmp"), "TEMP": str(RAW / "tmp")})
     (RAW / "tmp").mkdir(parents=True, exist_ok=True)
-    campaign = NextCampaign(phase="public-first-use")
+    campaign = NextCampaign(phase="public-authoring")
     attempts = []
 
     async def run(argv, label, input_data=None):
