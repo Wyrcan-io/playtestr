@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "run_id": "43335996416",
+  "workflow_revision": "9760a73ce4c792a89f6315f80c133ea971a05293",
+  "candidate_run_id": "43330369205",
+  "candidate_series": "native-exit-v3",
+  "candidate_version": "v0.4.0-rc.8",
+  "requested_phase": "final-qualification",
+  "status": "failed_before_project_scenarios",
+  "reason": "The phase validator accepts final-archive but not final-qualification. Candidate installation and Pick build/upstream tests passed on both hosts. No scenario launched; this attempt earns no matrix credit.",
+  "jobs": [
+    {
+      "host": "linux",
+      "provider_job_id": 131592199638,
+      "status": "completed",
+      "conclusion": "failure",
+      "source_archive_sha256": "e308cf7fca8eb50bc3d90e31347377f0cf955e07eb77793343743deaee72c653",
+      "target_binary_sha256": "687dcd78dacd8b4ca96eddb31e5bf308ca1d60dcd2731838589a67013ec38b7c",
+      "upstream_tests": "passed",
+      "candidate_install": "passed_exact_rc8_archive",
+      "scenario_launch_count": 0,
+      "cleanup": "exact_source_restored; owned source/runtime removed; no target launched",
+      "storage": {
+        "new_raw_bytes": 7877257,
+        "combined_raw_bytes": 1916904918,
+        "combined_retained_bytes": 996822440,
+        "project_bytes": 357307,
+        "combined_curated_bytes": 32048633,
+        "active": [],
+        "failed": []
+      },
+      "artifact": {
+        "id": 13996903794,
+        "name": "next20-pick-qualification-linux-43335996416",
+        "bytes": 344134,
+        "sha256": "9143a1caec54302ee0469389215d54fb92b36f30c67c94330fe14016063e302a",
+        "local_only": ".runner-readiness-compaction-tmp/pick-final-archive-rejected-linux.zip"
+      }
+    },
+    {
+      "host": "darwin",
+      "provider_job_id": 131592199177,
+      "status": "completed",
+      "conclusion": "failure",
+      "source_archive_sha256": "e308cf7fca8eb50bc3d90e31347377f0cf955e07eb77793343743deaee72c653",
+      "target_binary_sha256": "8dacc5183cf65e276294c6bcfcdb76808232aa557a6acce4e27939a1e78aeaf9",
+      "upstream_tests": "passed",
+      "candidate_install": "passed_exact_rc8_archive",
+      "scenario_launch_count": 0,
+      "cleanup": "exact_source_restored; owned source/runtime removed; no target launched",
+      "storage": {
+        "new_raw_bytes": 7547230,
+        "combined_raw_bytes": 1916574891,
+        "combined_retained_bytes": 996492413,
+        "project_bytes": 357327,
+        "combined_curated_bytes": 32048633,
+        "active": [],
+        "failed": []
+      },
+      "artifact": {
+        "id": 13996504123,
+        "name": "next20-pick-qualification-darwin-43335996416",
+        "bytes": 344151,
+        "sha256": "ea902dca7626d4e61a9d020c2299081160523e2d21eec14d617a6f09df8abb9c",
+        "local_only": ".runner-readiness-compaction-tmp/pick-final-archive-rejected-darwin.zip"
+      }
+    }
+  ],
+  "scenario_credit": 0,
+  "project_credit": 0
+}
