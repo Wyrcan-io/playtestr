@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "run_id": "43333839727",
+  "head_sha": "4a715c5ed6af207334e75581244672be85fdf088",
+  "candidate_run_id": "43330369205",
+  "candidate_series": "native-exit-v3",
+  "candidate_version": "v0.4.0-rc.8",
+  "scenario_declaration": "docs/validation/runner-readiness-next-twenty-project-pass/pick/scenario-declaration-v10.json",
+  "scenario_declaration_sha256": "1f1b6b455e931b5ebde69cee820c3872abd8ffafd08d35e9452f25be5eeac65c",
+  "jobs": [
+    {
+      "databaseId": 131584902686,
+      "name": "Pick build and scenarios (linux)",
+      "host": "linux",
+      "status": "completed",
+      "conclusion": "success",
+      "artifact_id": 13996281785,
+      "artifact_name": "next20-pick-development-linux-43333839727",
+      "artifact_bytes": 1285076,
+      "artifact_sha256": "d275922b219af178ea94c3a6c2342b73777840b8e9c586af4a9998411095e1f9",
+      "local_zip": ".runner-readiness-compaction-tmp/pick-v10-linux.zip",
+      "source_archive_sha256": "e308cf7fca8eb50bc3d90e31347377f0cf955e07eb77793343743deaee72c653",
+      "target_binary_sha256": "687dcd78dacd8b4ca96eddb31e5bf308ca1d60dcd2731838589a67013ec38b7c",
+      "candidate_archive_sha256": "fd3b2ba11b833562ae886f587eb246d1a4e5ab83a179618e2c881e74f3bb4316",
+      "candidate_binary_sha256": "4b48ade7670c4306e6fc50d96100389e731a16f09d1b6e8505499bc40332c476",
+      "attempt_count": 20,
+      "passed": 20,
+      "failed": 0,
+      "cleanup": "exact source restored; owned source/runtime removed; target process groups absent",
+      "storage": {
+        "new_raw_bytes": 10333819,
+        "combined_raw_bytes": 1919361480,
+        "combined_retained_bytes": 999279002,
+        "project_bytes": 410622,
+        "combined_curated_bytes": 32026970,
+        "active": [],
+        "failed": []
+      }
+    },
+    {
+      "databaseId": 131584901975,
+      "name": "Pick build and scenarios (darwin)",
+      "host": "darwin",
+      "status": "completed",
+      "conclusion": "success",
+      "artifact_id": 13996432258,
+      "artifact_name": "next20-pick-development-darwin-43333839727",
+      "artifact_bytes": 1285350,
+      "artifact_sha256": "a3296940860c768fae783f75a3152a40db662c735c56c45a5532b79eb543e64e",
+      "local_zip": ".runner-readiness-compaction-tmp/pick-v10-darwin.zip",
+      "source_archive_sha256": "e308cf7fca8eb50bc3d90e31347377f0cf955e07eb77793343743deaee72c653",
+      "target_binary_sha256": "8dacc5183cf65e276294c6bcfcdb76808232aa557a6acce4e27939a1e78aeaf9",
+      "candidate_archive_sha256": "da50a7933c75b82dcb42b2f6829045edf2edfd0cb70afaf1b7f298823ac3ec60",
+      "candidate_binary_sha256": "49c657adbbad36c89cd7bb8866e5fe5782642d3fda24cda2b6878e91d8a035b3",
+      "attempt_count": 20,
+      "passed": 20,
+      "failed": 0,
+      "cleanup": "exact source restored; owned source/runtime removed; target process groups absent",
+      "storage": {
+        "new_raw_bytes": 10003817,
+        "combined_raw_bytes": 1919031478,
+        "combined_retained_bytes": 998949000,
+        "project_bytes": 410749,
+        "combined_curated_bytes": 32026970,
+        "active": [],
+        "failed": []
+      }
+    }
+  ],
+  "scenario_credit": 0,
+  "project_credit": 0
+}
