@@ -1,0 +1,92 @@
+{
+  "admission_credit": 0,
+  "audit_receipt_sha256": {
+    "development": "681a53fcba067bda7afdfb8e7bc654123ea8c9cf2031ece103a3615a81281cd2",
+    "fault": "6ea5f51296edd18f904d2b49b79775f3f59dc321e2e9419b9f80312cf96036e7",
+    "final": "a0f19e6924a4ab2fc264e43a4fa545ece2b3715ddbbe5cff408233bc220ad92c",
+    "public": "f43b174f91d3c4ae9609e985cb64e25899264887bc0b000e84966bf2adabd20d",
+    "technical": "849bbac4a2a984742aef579d451829b2238151fd938b1fc054afc7d8bdc62941"
+  },
+  "candidate": "v0.4.0-rc.8",
+  "candidate_series": "native-exit-v3",
+  "declarations": {
+    "fault": "4ce4f034a842f73a09501122dca097f802f51e401ed277baffdbf3b4707a424a",
+    "freeze": "29668abbb0518073a6b53d2d23dc2d6904e76046eea26d917003013a16ddd4d8",
+    "scenario": "1f1b6b455e931b5ebde69cee820c3872abd8ffafd08d35e9452f25be5eeac65c"
+  },
+  "delivered_ci": "not-run",
+  "false_greens": 0,
+  "historical_false_green_disclosed": true,
+  "hosts": {
+    "darwin": {
+      "candidate_archive_sha256": "da50a7933c75b82dcb42b2f6829045edf2edfd0cb70afaf1b7f298823ac3ec60",
+      "candidate_binary_sha256": "49c657adbbad36c89cd7bb8866e5fe5782642d3fda24cda2b6878e91d8a035b3",
+      "cleanup_confirmed": true,
+      "development_scenarios": 20,
+      "fault_phases": 9,
+      "faults": [
+        "F01",
+        "F02",
+        "F03"
+      ],
+      "final_scenarios": 240,
+      "public_route": "passed-audited",
+      "technical_route_attempts": 8
+    },
+    "linux": {
+      "candidate_archive_sha256": "fd3b2ba11b833562ae886f587eb246d1a4e5ab83a179618e2c881e74f3bb4316",
+      "candidate_binary_sha256": "4b48ade7670c4306e6fc50d96100389e731a16f09d1b6e8505499bc40332c476",
+      "cleanup_confirmed": true,
+      "development_scenarios": 20,
+      "fault_phases": 9,
+      "faults": [
+        "F01",
+        "F02",
+        "F03"
+      ],
+      "final_scenarios": 240,
+      "public_route": "passed-audited",
+      "technical_route_attempts": 8
+    }
+  },
+  "human_participants": 0,
+  "project": "pick",
+  "repository": "mptre/pick",
+  "saved_state_coverage_credit": 0,
+  "schema_version": 1,
+  "semantic_corruptions_rejected": [
+    "candidate",
+    "source",
+    "receipt_binding",
+    "host_omission",
+    "scenario_total",
+    "ordinary_denominator",
+    "calibration_denominator",
+    "false_green",
+    "historical_false_green",
+    "fault_identity",
+    "cleanup",
+    "public_route",
+    "technical_route",
+    "saved_state_overclaim",
+    "human_claim",
+    "preview_as_ci",
+    "self_admission"
+  ],
+  "semantic_corruptions_rejected_count": 17,
+  "source_pin": "caae95938359b2e814b3e7406f396f486c9d99fb",
+  "status": "model-controls-passed-not-project-admitted",
+  "totals": {
+    "development_attempts": 40,
+    "distinct_scenarios": 20,
+    "edge_scenarios": 12,
+    "fault_phases": 18,
+    "faults": 3,
+    "native_cells": 2,
+    "normal_scenarios": 8,
+    "ordinary_attempts": 480,
+    "public_routes": 2,
+    "technical_route_attempts": 16
+  },
+  "usability": "unmeasured"
+}
