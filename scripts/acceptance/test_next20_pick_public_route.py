@@ -12,9 +12,13 @@ class PickPublicRouteTests(unittest.TestCase):
     def test_first_use_records_offscreen_selection_and_exact_exit_without_handwritten_spec(self):
         declaration = json.loads(route.DECLARATION.read_text(encoding="utf-8"))
         self.assertEqual(route.RECORDER_CONTROLS, declaration["record_controls"])
-        self.assertEqual(route.RECORDER_CONTROLS[:6], [
-            "/expect item00", "/snapshot initial-menu.txt", "/key End",
-            "/expect tail-choice", "/key Enter", "/exit 0",
+        self.assertEqual(route.RECORDER_CONTROLS[:4], [
+            "/expect item00", "/snapshot initial-menu.txt", "/key ArrowDown", "/key ArrowDown",
+        ])
+        self.assertEqual(route.RECORDER_CONTROLS.count("/key ArrowDown"), 29)
+        self.assertEqual(route.RECORDER_CONTROLS[-7:], [
+            "/key ArrowDown", "/expect tail-choice", "/key Enter", "/exit 0",
+            "/review", "/replay", "/save",
         ])
         self.assertEqual(route.INITIAL_FIXTURE.splitlines()[0], b"item00")
         self.assertEqual(route.INITIAL_FIXTURE.splitlines()[-1], b"tail-choice")

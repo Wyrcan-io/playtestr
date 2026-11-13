@@ -21,11 +21,9 @@ ARCHIVE_SHA256 = "e308cf7fca8eb50bc3d90e31347377f0cf955e07eb77793343743deaee72c6
 HOSTS = {"linux": "Linux", "darwin": "Darwin"}
 INITIAL_FIXTURE = (b"".join(f"item{index:02d}\n".encode("ascii") for index in range(29))
                    + b"tail-choice\n")
-RECORDER_CONTROLS = [
-    "/expect item00", "/snapshot initial-menu.txt", "/key End",
-    "/expect tail-choice", "/key Enter", "/exit 0",
-    "/review", "/replay", "/save",
-]
+RECORDER_CONTROLS = ["/expect item00", "/snapshot initial-menu.txt"] + [
+    "/key ArrowDown" for _ in range(29)
+] + ["/expect tail-choice", "/key Enter", "/exit 0", "/review", "/replay", "/save"]
 MAINTENANCE_CONTROLS = [
     '/replace 4 {"expect":"revised-tail-choice"}',
     "/review", "/replay", "/save",
