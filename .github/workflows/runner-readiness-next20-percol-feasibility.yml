@@ -76,13 +76,25 @@ jobs:
           mkdir six-site
           unzip -q six.whl -d six-site
 
-          mkdir python-source
-          tar -xzf Python-2.7.18.tgz -C python-source --strip-components=1
+          PY_SOURCE_DIR="$RUNNER_TEMP/percol-feasibility/python-source"
+          PYTHON_BUILD_FILESYSTEM=host-default
+          if [[ "$RUNNER_OS" == macOS ]]; then
+            PYTHON_BUILD_ROOT="$RUNNER_TEMP/percol-case-sensitive"
+            PYTHON_BUILD_IMAGE="$RUNNER_TEMP/percol-case-sensitive.sparseimage"
+            mkdir -p "$PYTHON_BUILD_ROOT"
+            hdiutil create -quiet -size 2g -type SPARSE -fs APFSX -volname percol-cs "$PYTHON_BUILD_IMAGE"
+            hdiutil attach -quiet -nobrowse -mountpoint "$PYTHON_BUILD_ROOT" "$PYTHON_BUILD_IMAGE"
+            PY_SOURCE_DIR="$PYTHON_BUILD_ROOT/python-source"
+            PYTHON_BUILD_FILESYSTEM=case-sensitive-apfs
+          fi
+          mkdir "$PY_SOURCE_DIR"
+          tar -xzf Python-2.7.18.tgz -C "$PY_SOURCE_DIR" --strip-components=1
           PYTHON_BUILD_PATCH=none
           if [[ "$RUNNER_OS" == macOS ]]; then
-            python - <<'PY'
+            python - "$PY_SOURCE_DIR/configure" "$RUNNER_TEMP/percol-feasibility/python-configure-arm64.patch" <<'PY'
           from pathlib import Path
-          path = Path("python-source/configure")
+          import sys
+          path = Path(sys.argv[1])
           text = path.read_text()
           start = text.index("    else\n    \tcase `/usr/bin/arch` in")
           wildcard = text.index("    \t*)", start)
@@ -90,18 +102,20 @@ jobs:
           if "arm64)\n    \t\tMACOSX_DEFAULT_ARCH=\"arm64\"" in text:
               raise SystemExit("refusing to apply duplicate native arm64 configure patch")
           path.write_text(text[:wildcard] + insertion + text[wildcard:])
-          Path("python-configure-arm64.patch").write_text(
+          Path(sys.argv[2]).write_text(
               "CPython 2.7.18 generated configure compatibility patch for native Apple Silicon.\n"
               "Adds arm64 to the native macOS architecture case; no cross-compilation or target source change.\n")
           PY
             PYTHON_BUILD_PATCH=configure-arm64
           fi
-          cd python-source
+          cd "$PY_SOURCE_DIR"
           ./configure --prefix="$RUNNER_TEMP/percol-feasibility/python" --with-ensurepip=no
           make -j2
-          PYTHON="$PWD/python"
-          cd ..
+          PYTHON="$PY_SOURCE_DIR/python"
+          cd "$RUNNER_TEMP/percol-feasibility"
           PYTHONPATH="$PWD/percol-source:$PWD/six-site" "$PYTHON" -c 'import sys, six, percol; assert sys.version_info[:3] == (2, 7, 18); print("CPython", sys.version.split()[0]); print("six", six.__version__); print("Percol import", percol.__file__)'
+          cp "$PY_SOURCE_DIR/configure" python-source-configure
+          cp "$PY_SOURCE_DIR/config.log" python-source-config.log
           {
             echo "host=$RUNNER_OS/$RUNNER_ARCH"
             echo "percol_pin=$PERCOL_PIN"
@@ -113,11 +127,35 @@ jobs:
             echo "six_wheel_sha256=$SIX_SHA"
             echo "percol_import=passed"
             echo "python_build_patch=$PYTHON_BUILD_PATCH"
+            echo "python_build_filesystem=$PYTHON_BUILD_FILESYSTEM"
             if [[ -f python-configure-arm64.patch ]]; then
               echo "python_build_patch_sha256=$(shasum -a 256 python-configure-arm64.patch | awk '{print $1}')"
             fi
             echo "qualification_scope=source/runtime feasibility only; no PTY scenario or admission credit"
           } | tee feasibility.txt
+
+      - name: Preserve Mac build metadata and detach case-sensitive APFS volume
+        if: always() && matrix.os == 'macos-latest'
+        shell: bash
+        run: |
+          set -euo pipefail
+          BUILD_ROOT="$RUNNER_TEMP/percol-case-sensitive"
+          EVIDENCE="$RUNNER_TEMP/percol-feasibility"
+          if [[ -f "$BUILD_ROOT/python-source/configure" ]]; then
+            cp "$BUILD_ROOT/python-source/configure" "$EVIDENCE/python-source-configure"
+          fi
+          if [[ -f "$BUILD_ROOT/python-source/config.log" ]]; then
+            cp "$BUILD_ROOT/python-source/config.log" "$EVIDENCE/python-source-config.log"
+          fi
+          if [[ -f "$EVIDENCE/python-configure-arm64.patch" ]]; then
+            shasum -a 256 "$EVIDENCE/python-configure-arm64.patch" > "$EVIDENCE/python-configure-arm64.patch.sha256"
+          fi
+          if hdiutil info | grep -Fq "$BUILD_ROOT"; then
+            hdiutil detach "$BUILD_ROOT"
+            echo "case_sensitive_apfs_detached=true"
+          else
+            echo "case_sensitive_apfs_detached=not_mounted"
+          fi
 
       - name: Preserve feasibility evidence
         if: always()

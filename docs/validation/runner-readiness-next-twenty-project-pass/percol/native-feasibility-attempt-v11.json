@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "project": "percol",
+  "workflow": ".github/workflows/runner-readiness-next20-percol-feasibility.yml",
+  "run_id": 43372147460,
+  "head_sha": "de3396c77a05050aa83ba92e1117a389206fc947",
+  "outcome": "native Linux feasibility passed; macOS reached the patched arm64 build but could not create the CPython executable on the default case-insensitive volume",
+  "failure_phase": "macOS source build filesystem layout",
+  "failure": "CPython source directory Python/ and output executable python collide by case on the runner's default filesystem; the attempted path resolved to a directory",
+  "jobs": {
+    "ubuntu-latest": {
+      "job_id": 131710146260,
+      "artifact_id": 14012867037,
+      "artifact_sha256": "f02080fcf9a55e001b94900afed55a413b55441329aad633372cb80bb5cd0ef5",
+      "result": "CPython 2.7.18 built; six 1.16.0 imported; pinned Percol package imported"
+    },
+    "macos-latest": {
+      "job_id": 131710146517,
+      "artifact_id": 14012699250,
+      "artifact_sha256": "c29330be1c44b94a39442370dd1ad76de6e47db4c8158b115dab52e33faeaeab",
+      "result": "native arm64 configure succeeded; build output path collided with source directory case"
+    }
+  },
+  "credit": {
+    "source_identity": "independently audited",
+    "linux_runtime_feasibility": "passed",
+    "macos_runtime_feasibility": 0,
+    "pty_scenarios": 0,
+    "project_admission": 0
+  },
+  "correction": "Build on a temporary case-sensitive APFS volume on the same native macOS host, preserve build metadata, and detach it in an always-run cleanup step."
+}

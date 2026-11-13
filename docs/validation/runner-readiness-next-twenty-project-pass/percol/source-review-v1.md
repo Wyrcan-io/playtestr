@@ -44,7 +44,23 @@ output, child processes and cleanup. If CPython 2.7 cannot build or run on
 either standard host, retain the failure and replace Percol only through the
 declared reserve and substitution process.
 
-The exact Percol source archive checksum, complete source-tree/ license hashes,
-and dependency lock remain unbound until the source-only acquisition packet is
-independently inspected. No source build, scenario, native-cell or admission
-credit is granted by this screening review.
+The initial macOS feasibility run found that CPython 2.7.18's generated
+`configure` script rejects the current Apple Silicon `arch` output. The native
+feasibility workflow applies a narrow, recorded build-only patch that maps
+`arm64` to the host's native architecture. It leaves the signed source archive
+unchanged and does not cross-compile or modify Percol. Any resulting evidence
+will identify the patch and its digest, and will not be presented as upstream
+CPython arm64 support.
+
+The next native Mac build exposed CPython 2.7's `Python/` source directory and
+`python` executable collision on the hosted runner's case-insensitive volume.
+The follow-up uses a temporary case-sensitive APFS image on that same macOS
+host and records the build logs, then detaches the image in an always-run
+cleanup step. This preserves native macOS execution while addressing the
+interpreter's source-tree layout requirement.
+
+The pinned source archive checksum, exact 32-file tree manifest and MIT notice
+hash are independently bound in `source-artifact-audit-v1.json`. The feasibility
+runtime input is pinned `six==1.16.0`; this is not a full install of Percol's
+declared `cmigemo` dependency. The screening review itself grants no scenario,
+public-route or project-admission credit.
