@@ -80,10 +80,12 @@ jobs:
           PYTHON_BUILD_FILESYSTEM=host-default
           if [[ "$RUNNER_OS" == macOS ]]; then
             PYTHON_BUILD_ROOT="$RUNNER_TEMP/percol-case-sensitive"
-            PYTHON_BUILD_IMAGE="$RUNNER_TEMP/percol-case-sensitive.sparseimage"
+            PYTHON_BUILD_IMAGE="$RUNNER_TEMP/percol-case-sensitive.sparsebundle"
             mkdir -p "$PYTHON_BUILD_ROOT"
-            hdiutil create -quiet -size 2g -type SPARSE -fs APFSX -volname percol-cs "$PYTHON_BUILD_IMAGE"
-            hdiutil attach -quiet -nobrowse -mountpoint "$PYTHON_BUILD_ROOT" "$PYTHON_BUILD_IMAGE"
+            hdiutil create -size 2g -type SPARSEBUNDLE -layout NONE -fs APFSX -volname percol-cs "$PYTHON_BUILD_IMAGE"
+            hdiutil attach -nobrowse -mountpoint "$PYTHON_BUILD_ROOT" "$PYTHON_BUILD_IMAGE"
+            diskutil info "$PYTHON_BUILD_ROOT" | tee "$RUNNER_TEMP/percol-feasibility/case-sensitive-filesystem.txt"
+            grep -qi 'Case-sensitive' "$RUNNER_TEMP/percol-feasibility/case-sensitive-filesystem.txt"
             PY_SOURCE_DIR="$PYTHON_BUILD_ROOT/python-source"
             PYTHON_BUILD_FILESYSTEM=case-sensitive-apfs
           fi

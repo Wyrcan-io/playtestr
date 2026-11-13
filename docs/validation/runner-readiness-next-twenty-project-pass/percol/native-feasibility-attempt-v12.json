@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "project": "percol",
+  "workflow": ".github/workflows/runner-readiness-next20-percol-feasibility.yml",
+  "run_id": 43372870698,
+  "head_sha": "3b8d1c7b26548ea19513d2776abc9f63d5bb0979",
+  "outcome": "native Linux feasibility passed; macOS failed while creating the temporary case-sensitive filesystem, before CPython configure or build",
+  "failure_phase": "macOS temporary filesystem provisioning",
+  "failure": "The initial attempt used a quiet hdiutil create command, which suppressed its diagnostic. The volume was not mounted and cleanup confirmed not_mounted. No macOS runtime or scenario credit.",
+  "jobs": {
+    "ubuntu-latest": {
+      "job_id": 131712486851,
+      "artifact_id": 14013281973,
+      "artifact_sha256": "46fa71e0da6fad9722548f1330d9c1d3f85710b503f046c1f2d99be95239ab1b",
+      "result": "CPython 2.7.18 built; six 1.16.0 imported; pinned Percol package imported"
+    },
+    "macos-latest": {
+      "job_id": 131712487190,
+      "artifact_id": 14013556140,
+      "artifact_sha256": "ae64b95cc2cfd4e371ef47936263f56f40738760ed25183b00e9ae5f4919b31e",
+      "result": "source and Python signature verified; six downloaded; hdiutil case-sensitive image creation failed; cleanup confirmed no mount"
+    }
+  },
+  "credit": {
+    "source_identity": "independently audited",
+    "linux_runtime_feasibility": "passed",
+    "macos_runtime_feasibility": 0,
+    "pty_scenarios": 0,
+    "project_admission": 0
+  },
+  "correction": "Use a sparse bundle with an explicit no-partition layout, preserve hdiutil diagnostics, and verify the mounted volume reports a case-sensitive filesystem before building."
+}
