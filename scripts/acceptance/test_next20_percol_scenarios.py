@@ -42,6 +42,8 @@ class PercolScenarioContractTests(unittest.TestCase):
         self.assertIn("--caret-position=0", rows["E01"]["options"])
         self.assertIn("--query=art", rows["N03"]["options"])
         self.assertEqual("Match a substring query", rows["N03"]["title"])
+        self.assertIn("--query=apx", rows["N07"]["options"])
+        self.assertIn({"key": "Backspace"}, rows["N07"]["actions"])
         self.assertIn("--match-method=regex", rows["E08"]["options"])
         self.assertIn("--reverse", rows["E09"]["options"])
         self.assertNotIn(" < ", rows["E11"]["command"])

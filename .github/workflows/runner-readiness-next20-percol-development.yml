@@ -247,13 +247,22 @@ jobs:
           from pathlib import Path
           root=Path(sys.argv[1]).resolve(strict=True)
           links=[]
+          allowed={'bin/python','bin/python2','bin/python-config','bin/python2-config',
+                   'lib/pkgconfig/python2.pc','lib/pkgconfig/python.pc',
+                   'share/man/man1/python2.1','share/man/man1/python.1'}
           for path in sorted(root.rglob('*')):
               if not path.is_symlink(): continue
               resolved=path.resolve(strict=True)
               resolved.relative_to(root)
-              if path.name not in {'python','python2','python-config','python2-config'}:
+              if path.relative_to(root).as_posix() not in allowed:
                   raise SystemExit('unreviewed CPython install symlink: '+str(path.relative_to(root)))
               links.append({'path':path.relative_to(root).as_posix(),'target':os.readlink(path)})
+          if {item['path'] for item in links} != allowed:
+              raise SystemExit('CPython install symlink set differs from the reviewed exact inventory')
+          for item in links:
+              path=root/item['path']
+              if not path.is_symlink() or os.readlink(path)!=item['target']:
+                  raise SystemExit('CPython install symlink changed after inventory: '+item['path'])
               path.unlink()
           Path(sys.argv[2]).write_text(json.dumps({'removed_aliases':links},sort_keys=True,indent=2)+'\n',encoding='utf-8')
           PY

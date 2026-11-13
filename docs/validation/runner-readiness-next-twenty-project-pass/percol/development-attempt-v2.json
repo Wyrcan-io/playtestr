@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "project": "percol",
+  "phase": "development",
+  "run_id": 43379976720,
+  "workflow": ".github/workflows/runner-readiness-next20-percol-development.yml",
+  "commit": "75fef3e9d6d0caf48ae7a610eb8f58f2efc751cf",
+  "run_url": "https://github.com/Wyrcan-io/playtestr/actions/runs/43379976720",
+  "run_conclusion": "failure",
+  "candidate": "v0.4.0-rc.8",
+  "candidate_series": "native-exit-v3",
+  "scenario_contract": "scenario-declaration-v2.json",
+  "attempted_repetitions": 1,
+  "attempted_case_ids_per_host": ["N01", "N02", "N03", "N04", "N05", "N06", "N07"],
+  "host_results": [
+    {
+      "host": "linux-amd64",
+      "job_id": 131735223530,
+      "artifact_id": 14016321794,
+      "artifact_name": "next20-percol-development-linux-43379976720",
+      "artifact_bytes": 87815905,
+      "provider_sha256": "66f60439da3f33a072fb39a66624917bd64b6fceb9b60f765bb6a51ac4cef28e",
+      "downloaded_zip": "local-only: artifacts/runner-readiness-next-twenty-project-pass/retained/percol-development-run43379976720-linux.zip",
+      "downloaded_sha256": "66f60439da3f33a072fb39a66624917bd64b6fceb9b60f765bb6a51ac4cef28e",
+      "cases": {"N01": "passed", "N02": "passed", "N03": "passed", "N04": "passed", "N05": "passed", "N06": "passed", "N07": "failed"},
+      "first_failure": {
+        "case": "N07",
+        "report": "percol/development/linux/r01/N07/report.json",
+        "category": "state_assertion_failure",
+        "actual_target_exit": 0,
+        "expected_stdout": "banana\\n",
+        "actual_stdout": "apple\\n",
+        "rendered_screen": "QUERY> ap (1/2) [1/1], followed by apple and banana; apple remained selected",
+        "target_process_group_cleanup_confirmed": true,
+        "workspace_cleaned": true
+      },
+      "source_restoration": "passed: target source had no extra files after PYTHONDONTWRITEBYTECODE was added",
+      "source_runtime_cleanup": "failed safely: the shared cleanup helper refuses unreviewed runtime symlinks; uploaded runtime archive preserves the full runtime before alias mutation",
+      "storage_limit": "passed",
+      "admission_credit": 0
+    },
+    {
+      "host": "macos-arm64",
+      "job_id": 131735223225,
+      "artifact_id": 14015529383,
+      "artifact_name": "next20-percol-development-darwin-43379976720",
+      "artifact_bytes": 78313811,
+      "provider_sha256": "ad18cab85ea5be8eca0ab81d4142356600f785634003c586bef286739dbb0c75",
+      "downloaded_zip": "local-only: artifacts/runner-readiness-next-twenty-project-pass/retained/percol-development-run43379976720-macos.zip",
+      "downloaded_sha256": "ad18cab85ea5be8eca0ab81d4142356600f785634003c586bef286739dbb0c75",
+      "cases": {"N01": "passed", "N02": "passed", "N03": "passed", "N04": "passed", "N05": "passed", "N06": "passed", "N07": "failed"},
+      "first_failure": {
+        "case": "N07",
+        "report": "percol/development/darwin/r01/N07/report.json",
+        "category": "state_assertion_failure",
+        "actual_target_exit": 0,
+        "expected_stdout": "banana\\n",
+        "actual_stdout": "apple\\n",
+        "rendered_screen": "QUERY> ap (1/2) [1/1], followed by apple and banana; apple remained selected",
+        "target_process_group_cleanup_confirmed": true,
+        "workspace_cleaned": true
+      },
+      "source_restoration": "passed: target source had no extra files after PYTHONDONTWRITEBYTECODE was added",
+      "source_runtime_cleanup": "failed safely: the shared cleanup helper refuses unreviewed runtime symlinks; uploaded runtime archive preserves the full runtime before alias mutation",
+      "storage_limit": "passed",
+      "admission_credit": 0
+    }
+  ],
+  "diagnosis": {
+    "target_behavior": "Percol applies --invert-match to a query finder after the model's initial query result has begun lazy evaluation. The initial matching row remains cached; the report correctly caught selected stdout apple instead of banana.",
+    "scenario_correction": "Preserve the launched v2 contract and failures. In v3 initialize with nonmatching query apx, send Backspace after startup to force a fresh inverted search for ap, then assert/select banana.",
+    "cleanup_correction": "Preserve both full runtime tarballs. Validate the exact eight CPython 2 symlink paths and in-root resolutions before unlinking any; remove all eight recorded metadata and command aliases before the shared cleanup helper inventories the target.",
+    "source_mutation": "None observed in the exact Percol source tree in this run."
+  },
+  "admission_credit": 0
+}
