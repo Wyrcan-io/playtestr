@@ -68,10 +68,6 @@ jobs:
         run: python -B -m unittest test_next20_fzy_fault_calibration test_next20_fzy_scenarios test_next20_target_cleanup -v
         working-directory: scripts/acceptance
 
-      - name: Acquire the exact reviewed fzy source pin
-        id: acquire
-        run: python -B scripts/acceptance/next20_acquire.py fzy
-
       - name: Download the exact frozen rc.8 native runner archive
         uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
         with:
@@ -91,14 +87,20 @@ jobs:
         run: python -B scripts/acceptance/next20_fzy_fault_calibration.py --host "${{ matrix.host }}"
 
       - name: Restore exact source after interrupted calibration
-        if: always() && steps.acquire.outcome == 'success'
-        run: >-
-          if [ -d artifacts/runner-readiness-next-twenty-project-pass/active/fzy ]; then
-          python -B scripts/acceptance/next20_target_cleanup.py --project fzy --include-active-case-evidence;
+        if: always()
+        run: |
+          case_root=artifacts/runner-readiness-next-twenty-project-pass/fzy
+          active_root=artifacts/runner-readiness-next-twenty-project-pass/active/fzy
+          if [ -d "$active_root" ]; then
+            if find "$case_root" -type f -name report.json -print -quit | grep -q .; then
+              python -B scripts/acceptance/next20_target_cleanup.py --project fzy --include-active-case-evidence
+            else
+              python -B scripts/acceptance/next20_target_cleanup.py --project fzy --no-case-reports
+            fi
           fi
 
       - name: Verify campaign storage bounds
-        if: always() && steps.acquire.outcome == 'success'
+        if: always()
         run: python -B scripts/acceptance/next20_storage.py fzy
 
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f

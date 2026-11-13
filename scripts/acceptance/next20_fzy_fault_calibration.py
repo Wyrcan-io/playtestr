@@ -76,9 +76,17 @@ def load_contract():
 
 
 async def command(argv, project, label, phase, *, expected=0, timeout=2400, env=None):
-    return await execute(list(map(str, argv)), project, label, cwd=ROOT,
-                         env=env or dict(os.environ), timeout=timeout, expected=expected,
-                         campaign=NextCampaign(phase=phase))
+    try:
+        return await execute(list(map(str, argv)), project, label, cwd=ROOT,
+                             env=env or dict(os.environ), timeout=timeout, expected=expected,
+                             campaign=NextCampaign(phase=phase))
+    except Exception as error:
+        directory = getattr(error, "evidence_directory", None)
+        console = Path(directory) / "console.log" if directory else None
+        if console and console.is_file():
+            detail = console.read_text(encoding="utf-8", errors="replace")[-12000:]
+            raise RuntimeError(f"{error}\n--- bounded helper output ---\n{detail}") from error
+        raise
 
 
 def build_fault_binary(target, fault, evidence):

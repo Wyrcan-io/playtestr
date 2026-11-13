@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "project": "fzy",
+  "run_id": 43360846815,
+  "head_sha": "18fc0d87b70bc70d73ca897bd3f813e266018a1f",
+  "workflow": ".github/workflows/runner-readiness-next20-fzy-fault-calibration.yml",
+  "status": "failed-before-scenario-launch",
+  "jobs": {
+    "linux": {
+      "job_id": 131673721988,
+      "artifact_id": 14008510922,
+      "artifact_bytes": 160691,
+      "artifact_sha256": "91c08901845e9d6184443d3ed52973c99fb889652d3b8ff4ffa154bce98a09ea",
+      "conclusion": "failure"
+    },
+    "darwin": {
+      "job_id": 131673721779,
+      "artifact_id": 14007793385,
+      "artifact_bytes": 160689,
+      "artifact_sha256": "ca6068c5b8646a5e05b3e21013c823f0c0634491c800ef8fdd6abce5413924c9",
+      "conclusion": "failure"
+    }
+  },
+  "failure": {
+    "phase": "F01 baseline source acquisition",
+    "category": "harness_error",
+    "message": "The workflow pre-acquired fzy, then the calibration helper attempted a second acquisition. The existing active target correctly caused acquisition to refuse before any scenario launch.",
+    "first_scenario_launched": false,
+    "target_cleanup": "Cleanup was invoked with the report-required mode and failed because no scenario report existed. Storage verification passed; the active source is retained in the failed job artifact for diagnosis.",
+    "scenario_credit": 0,
+    "calibration_credit": 0,
+    "cleanup_credit": 0,
+    "admission_credit": 0
+  },
+  "corrective_action": "Remove redundant workflow-level target acquisition; let each baseline/fault/restored phase acquire, build and clean its own exact source. Select no-case cleanup when an interrupted phase has no target reports, and surface bounded helper output in the workflow log.",
+  "scope": "Preserved failed workflow attempt; no target scenario ran and no fault or project admission credit is claimed."
+}
