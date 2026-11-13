@@ -10,6 +10,7 @@ on:
       - docs/validation/runner-readiness-next-twenty-project-pass/pick/public-route-declaration-v1.json
       - scripts/acceptance/next20_pick_public_route.py
       - scripts/acceptance/test_next20_pick_public_route.py
+      - scripts/acceptance/next20_pick_technical_route.py
       - scripts/acceptance/next20_pick_build.py
 
 permissions:
@@ -57,7 +58,7 @@ jobs:
         run: mkdir -p artifacts/runner-readiness-next-twenty-project-pass/tmp
 
       - name: Verify public route contracts and bounded cleanup rules
-        run: python -B -m unittest test_next20_pick_public_route test_next20_target_cleanup -v
+        run: python -B -m unittest test_next20_pick_public_route test_next20_pick_technical_route test_next20_target_cleanup -v
         working-directory: scripts/acceptance
 
       - name: Acquire exact reviewed Pick source
@@ -83,8 +84,13 @@ jobs:
           --series native-exit-v3 --archive "${{ matrix.candidate_archive }}"
 
       - name: Exercise public record, diagnosis, maintenance, relocation and workflow preview
+        id: public
         if: steps.acquire.outcome == 'success'
         run: python -B scripts/acceptance/next20_pick_public_route.py --host "${{ matrix.host }}"
+
+      - name: Exercise technical selection, migration, reporting and suffix rerecord
+        if: steps.public.outcome == 'success'
+        run: python -B scripts/acceptance/next20_pick_technical_route.py --host "${{ matrix.host }}"
 
       - name: Confirm exact source restoration and remove owned Pick tree
         if: always() && steps.acquire.outcome == 'success'
