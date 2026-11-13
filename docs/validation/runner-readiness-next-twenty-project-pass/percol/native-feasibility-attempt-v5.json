@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "project": "percol",
+  "workflow": ".github/workflows/runner-readiness-next20-percol-feasibility.yml",
+  "run_id": 43369779780,
+  "head_sha": "7661a5dc5394a7c6cff870809232fa6c50a71eeb",
+  "outcome": "both jobs stopped at detached signature verification before runtime build",
+  "failure_phase": "Python source signature key selection",
+  "failure": "The exact legacy signer key was imported and its full fingerprint matched, but GPG reported that the detached release signature's issuer key was not present; the workflow now imports and fingerprints both Python-documented Benjamin Peterson keys before verification",
+  "jobs": {
+    "ubuntu-latest": {
+      "job_id": 131702585716,
+      "artifact_id": 14012236234,
+      "artifact_sha256": "f124c660db8b653da193dc23e41b5a9a331d6111d2add97f022379388a6ff23d"
+    },
+    "macos-latest": {
+      "job_id": 131702585878,
+      "artifact_id": 14012171378,
+      "artifact_sha256": "9b64ad767e3ebb6edcaed9a47735f47bf1eb17bdc2407fc1c8a893de9a42f828"
+    }
+  },
+  "credit": {
+    "source_identity": 0,
+    "native_runtime": 0,
+    "scenarios": 0,
+    "admission": 0
+  }
+}

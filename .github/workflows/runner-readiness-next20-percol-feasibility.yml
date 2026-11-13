@@ -43,12 +43,13 @@ jobs:
           mkdir -p "$RUNNER_TEMP/percol-feasibility"
           cd "$RUNNER_TEMP/percol-feasibility"
           PERCOL_PIN=4b28037e328da3d0fe8165c11b800cbaddcb525e
-          curl --fail --location --retry 3 --max-time 90 \
-            "https://api.github.com/repos/mooz/percol/tarball/$PERCOL_PIN" -o percol.tar.gz
-          test "$(wc -c < percol.tar.gz)" -le 8388608
-          PERL_SHA=$(shasum -a 256 percol.tar.gz | awk '{print $1}')
-          mkdir percol-source
-          tar -xzf percol.tar.gz -C percol-source --strip-components=1
+          python -B scripts/acceptance/next20_acquire.py percol
+          SOURCE_DIR="$GITHUB_WORKSPACE/artifacts/runner-readiness-next-twenty-project-pass/active/percol/src"
+          cp -a "$SOURCE_DIR" percol-source
+          cp "$GITHUB_WORKSPACE/artifacts/runner-readiness-next-twenty-project-pass/active/percol/acquisition.json" acquisition.json
+          cp "$GITHUB_WORKSPACE/artifacts/runner-readiness-next-twenty-project-pass/active/percol/source.tar.gz" percol.tar.gz
+          PERCOL_SHA=$(python -c 'import json; print(json.load(open("acquisition.json"))["archive_sha256"])')
+          test "$(python -c 'import json; print(json.load(open("acquisition.json"))["pin"])')" = "$PERCOL_PIN"
           test -f percol-source/debian/copyright
           grep -qi 'License: MIT' percol-source/debian/copyright
 
@@ -56,11 +57,17 @@ jobs:
           curl --fail --location --retry 3 --max-time 90 "$PYTHON_URL/Python-2.7.18.tgz" -o Python-2.7.18.tgz
           curl --fail --location --retry 3 --max-time 90 "$PYTHON_URL/Python-2.7.18.tgz.asc" -o Python-2.7.18.tgz.asc
           curl --fail --location --retry 3 --max-time 90 \
+            'https://keybase.io/bp/pgp_keys.asc?fingerprint=c01e1cad5ea2c4f0b8e3571504c367c218add4ff' \
+            -o python-release-key-current.asc
+          gpg --batch --import python-release-key-current.asc
+          curl --fail --location --retry 3 --max-time 90 \
             'https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x12EF3DC38047DA382D18A5B999CDEA9DA4135B38' \
-            -o python-release-key.asc
-          gpg --batch --import python-release-key.asc
-          FINGERPRINT=$(gpg --with-colons --fingerprint A4135B38 | awk -F: '$1 == "fpr" {print $10; exit}')
-          test "$FINGERPRINT" = 12EF3DC38047DA382D18A5B999CDEA9DA4135B38
+            -o python-release-key-legacy.asc
+          gpg --batch --import python-release-key-legacy.asc
+          FINGERPRINTS=$(gpg --with-colons --list-keys | awk -F: '$1 == "fpr" {print toupper($10)}')
+          printf '%s\n' "$FINGERPRINTS" | grep -qx C01E1CAD5EA2C4F0B8E3571504C367C218ADD4FF
+          printf '%s\n' "$FINGERPRINTS" | grep -qx 12EF3DC38047DA382D18A5B999CDEA9DA4135B38
+          gpg --list-packets Python-2.7.18.tgz.asc | tee python-source-signature-packets.txt
           gpg --batch --verify Python-2.7.18.tgz.asc Python-2.7.18.tgz
           PY_SHA=$(shasum -a 256 Python-2.7.18.tgz | awk '{print $1}')
 
@@ -83,10 +90,10 @@ jobs:
           {
             echo "host=$RUNNER_OS/$RUNNER_ARCH"
             echo "percol_pin=$PERCOL_PIN"
-            echo "percol_archive_sha256=$PERL_SHA"
+            echo "percol_archive_sha256=$PERCOL_SHA"
             echo "python_source_signature=verified"
             echo "python_source_sha256=$PY_SHA"
-            echo "python_source_signer=$FINGERPRINT"
+            echo "python_source_signer_fingerprints=$(printf '%s' "$FINGERPRINTS" | paste -sd, -)"
             echo "six_version=1.16.0"
             echo "six_wheel_sha256=$SIX_SHA"
             echo "percol_import=passed"
