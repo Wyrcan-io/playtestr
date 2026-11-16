@@ -1,0 +1,61 @@
+{
+  "actual_model_controls": {
+    "path": "skim-model-controls-v1.json",
+    "positive_models_restored": true,
+    "semantic_corruptions_rejected": 24,
+    "sha256": "d8b6ba56b5049bba31a550c219ff5f3b9be1336cd51d3a1e56982954da01619b"
+  },
+  "admission_status": "exact candidate native evidence and project model controls complete; candidate project admission and campaign-wide reconciliation/storage closure not yet recorded",
+  "candidate": "v0.4.0-rc.6",
+  "hosts": [
+    {
+      "cleanup": {
+        "checked_target_removed": true,
+        "cleanup_inventory_sha256": "b2ccd25c087b40fe5c76613c4089ac0d4a8b0cc7ae90f8d70e09e88347ac2e24",
+        "compiler_cache_removed": true,
+        "process_absent": true,
+        "source_restored": true
+      },
+      "fault_phases": 9,
+      "host": "linux",
+      "ordinary": 240,
+      "provider_artifact_sha256": "c8682562611e1f6106ff24652e19951a23868c2d04c031bb0d71c2a15dc8c1c2",
+      "provider_bytes": 8080668,
+      "readback": "skim/artifact-retrieval-readback-v14-linux.json",
+      "readback_sha256": "776901b641481b7fb9c7d089c3e6fc2f72103967128f5b95a3787b73aa6e78f1",
+      "reconstructed_contracts": 240,
+      "runner_sha256": "e302a46eb090772d91aab7018b51eea0d1fb92247846f4a63375e1009e29309a",
+      "target_sha256": "427de19b0ab4f344376b3a7a594bac9c36872faba9cc745c9b8f0bd05452bfa0"
+    },
+    {
+      "cleanup": {
+        "checked_target_removed": true,
+        "cleanup_inventory_sha256": "8c59a319b71bd9f1f4108c057592674014b713f8742af6d7edd9414d44c2973c",
+        "compiler_cache_removed": true,
+        "process_absent": true,
+        "source_restored": true
+      },
+      "fault_phases": 9,
+      "host": "windows",
+      "ordinary": 240,
+      "provider_artifact_sha256": "b496dfe8ac867434f93c9bdd4958c4d6a2e08165285bb518868c6ac8a16a7ed5",
+      "provider_bytes": 8405110,
+      "readback": "skim/artifact-retrieval-readback-v14-windows.json",
+      "readback_sha256": "137d0cd436127fb7b3b41135eae7f0c21f3c32a64f1133700b942d293821a1bc",
+      "reconstructed_contracts": 240,
+      "runner_sha256": "6c80fdbcdd74705b85b2e8aad2f07140f5ff5e8cea80db1d6c24a04d71b23f36",
+      "target_sha256": "343418a55b34ff526ca2c4b56a487d8aab8b074f6721ceb05bf20c80dae17389"
+    }
+  ],
+  "project": "skim",
+  "schema_version": 1,
+  "scope": "Provider-digest-bound artifact readbacks and 24 semantic tamper rejections across two actual native cell models. Expected seeded-diagnosis assertion failure is useful negative evidence. Does not claim campaign storage compliance or 30-project closure.",
+  "totals": {
+    "fault_phases": 18,
+    "independently_reconstructed_contracts": 480,
+    "ordinary": 480,
+    "semantic_corruptions_rejected": 24
+  },
+  "workflow_revision": "a46d5e0a8b371ab22501c925ed2ca109131eeec5",
+  "workflow_run_id": 42522624176
+}
