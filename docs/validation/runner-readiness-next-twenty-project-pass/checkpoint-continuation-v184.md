@@ -35,7 +35,12 @@ private research plan only; no outreach or participant contact has occurred.
 The prior HEAD was `ac21d574d6143d4dc4ef9eebf65cc6b2a95cb27b` on the authorized
 branch `work/p0-p2-implementation`. At the start of closeout there were no
 modified tracked files. Several campaign receipts/checkpoints and ignored local
-working directories were present. Commit only curated records and the product
-direction note; do not add raw archives or caches to Git. Preserve validated
-attempt evidence and avoid blanket clean operations. Local generated cache and
-duplicate scratch cleanup is recorded separately with verified archive hashes.
+working directories were present. The curated records and product-direction
+note are committed; raw archives and caches stay out of Git. The 232,502,660-byte
+`.codex-go-cache` and generated `examples/bin/demo.exe` were removed. Two other
+untracked scratch trees remain (`.codex-test-tmp` and
+`.runner-readiness-compaction-tmp`; about 397 MB by the last measurement). One
+contains a Windows junction. Local archive attempts stalled before integrity
+verification; incomplete archives were removed and both source trees were
+preserved. Do not delete them until a safe, verified archive or duplicate audit
+is available.
